@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOYZ FOR SHOTZ - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: white; }
+        .card { background: #1a1a1a; border-radius: 12px; padding: 24px; border: 1px solid #252525; }
+    </style>
+</head>
+<body class="min-h-screen p-8">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="flex items-center justify-between mb-10">
+            <div class="flex items-center gap-4">
+                <img src="https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png" alt="Logo" class="w-14 h-14 rounded-full">
+                <div>
+                    <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+                    <p class="text-gray-500 text-sm">TOYZ FOR SHOTZ Content Manager</p>
+                </div>
+            </div>
+            <a href="./index.html" class="bg-red-600 px-5 py-2.5 rounded-lg hover:bg-red-700 transition">View Site</a>
+        </header>
+
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-4 gap-5 mb-10">
+            <div class="card text-center"><div class="text-3xl font-bold text-red-500" id="statPhotos">0</div><div class="text-sm text-gray-400 mt-1">Photos</div></div>
+            <div class="card text-center"><div class="text-3xl font-bold" id="statProducts">0</div><div class="text-sm text-gray-400 mt-1">Products</div></div>
+            <div class="card text-center"><div class="text-3xl font-bold" id="statPosts">0</div><div class="text-sm text-gray-400 mt-1">Blog Posts</div></div>
+            <div class="card text-center"><div class="text-3xl font-bold text-red-500" id="statVideos">0</div><div class="text-sm text-gray-400 mt-1">Videos</div></div>
+        </div>
+
+        <!-- Add New Photo Section -->
+        <section class="card mb-8">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-3">
+                <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Add New Gallery Photo
+            </h2>
+            <form id="photoForm" class="grid md:grid-cols-2 gap-5">
+                <input type="text" name="title" placeholder="Photo Title *" required class="bg-black border border-gray-700 rounded-lg px-4 py-3 focus:border-red-500 outline-none">
+                <select name="category" required class="bg-black border border-gray-700 rounded-lg px-4 py-3 focus:border-red-500 outline-none">
+                    <option value="">Select Category *</option>
+                    <option value="mortalkombat">Mortal Kombat</option>
+                    <option value="starwars">Star Wars</option>
+                    <option value="marvel">Marvel</option>
+                    <option value="behindthescenes">Behind The Scenes</option>
+                    <option value="collections">Collections</option>
+                </select>
+                <input type="url" name="image_url" placeholder="Image URL *" required class="bg-black border border-gray-700 rounded-lg px-4 py-3 focus:border-red-500 outline-none md:col-span-2">
+                <textarea name="description" placeholder="Description (optional)" rows="3" class="bg-black border border-gray-700 rounded-lg px-4 py-3 focus:border-red-500 outline-none md:col-span-2 resize-none"></textarea>
+                <button type="submit" class="bg-red-600 px-6 py-3 rounded-lg hover:bg-red-700 transition font-semibold col-span-2">Upload Photo</button>
+            </form>
+        </section>
+
+        <!-- Recent Photos List -->
+        <section class="card">
+            <h2 class="text-xl font-bold mb-6">Recent Gallery Photos</h2>
+            <div id="photosList" class="space-y-3">
+                <p class="text-gray-500 text-center py-8">Loading...</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // === CONFIGURE THESE ===
+        const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
+        const SUPABASE_KEY = 'YOUR_ANON_KEY';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // Load stats
+        async function loadStats() {
+            const [photos, products, posts, videos] = await Promise.all([
+                supabase.from('gallery_photos').select('*', { count: 'exact', head: true }),
+                supabase.from('products').select('*', { count: 'exact', head: true }),
+                supabase.from('blog_posts').select('*', { count: 'exact', head: true }),
+                supabase.from('videos').select('*', { count: 'exact', head: true })
+            ]);
+            
+            document.getElementById('statPhotos').textContent = photos.count;
+            document.getElementById('statProducts').textContent = products.count;
+            document.getElementById('statPosts').textContent = posts.count;
+            document.getElementById('statVideos').textContent = videos.count;
+        }
+
+        // Load photos list
+        async function loadPhotos() {
+            const { data, error } = await supabase
+                .from('gallery_photos')
+                .select('*')
+                .order('created_at', { ascending: false })
+                .limit(20);
+            
+            if (error) {
+                document.getElementById('photosList').innerHTML = `<p class="text-red-500 text-center">Error loading: ${error.message}</p>`;
+                return;
+            }
+
+            document.getElementById('photosList').innerHTML = data.map(photo => `
+                <div class="flex items-center gap-4 p-4 bg-black/50 rounded-lg">
+                    <img src="${photo.image_url}" alt="${photo.title}" class="w-16 h-16 object-cover rounded-lg">
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-medium truncate">${photo.title}</h3>
+                        <p class="text-sm text-gray-400">${photo.category} • ${photo.likes || 0} likes</p>
+                    </div>
+                    <span class="tag bg-red-500/20 text-red-400 text-xs px-2 py-1 rounded">${photo.category}</span>
+                    <button onclick="deletePhoto(${photo.id})" class="p-2 text-gray-500 hover:text-red-500 transition" title="Delete">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Add photo form handler
+        document.getElementById('photoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            const { data, error } = await supabase.from('gallery_photos').insert([{
+                title: formData.get('title'),
+                category: formData.get('category'),
+                image_url: formData.get('image_url'),
+                description: formData.get('description'),
+                likes: Math.floor(Math.random() * 1000)
+            }]).select();
+
+            if (error) {
+                alert('Error: ' + error.message);
+            } else {
+                e.target.reset();
+                loadPhotos();
+                loadStats();
+                alert('Photo added successfully!');
+            }
+        });
+
+        // Delete photo
+        window.deletePhoto = async (id) => {
+            if (!confirm('Delete this photo?')) return;
+            const { error } = await supabase.from('gallery_photos').delete().eq('id', id);
+            if (!error) { loadPhotos(); loadStats(); }
+        };
+
+        // Init
+        loadStats();
+        loadPhotos();
+    </script>
+</body>
+</html>
