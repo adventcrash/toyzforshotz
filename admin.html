@@ -5,148 +5,1012 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOYZ FOR SHOTZ - Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: white; }
-        .card { background: #1a1a1a; border-radius: 12px; padding: 24px; border: 1px solid #252525; }
+        * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+        body { background: #0a0a0a; color: #fff; margin: 0; padding: 0; }
+        
+        /* TAB SYSTEM - FIXED */
+        .tab-btn {
+            background: #1a1a1a;
+            color: #888;
+            border: 1px solid #252525;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+        .tab-btn:hover { background: #252525; color: #fff; border-color: #333; }
+        .tab-btn.active { 
+            background: #e63946; 
+            color: white; 
+            border-color: #e63946;
+            box-shadow: 0 4px 15px rgba(230,57,70,0.3);
+        }
+        
+        .tab-content { display: block; animation: fadeIn 0.3s ease; }
+        .tab-content.hidden { display: none !important; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card { background: #1a1a1a; border: 1px solid #252525; border-radius: 16px; padding: 24px; }
+        .btn-primary { 
+            background: #e63946; 
+            color: white; 
+            padding: 12px 24px; 
+            border-radius: 10px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            border: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-primary:hover { 
+            background: #d62839; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(230,57,70,0.4);
+        }
+        .btn-danger { 
+            background: transparent; 
+            color: #ef4444; 
+            border: 1px solid #ef4444; 
+            padding: 12px 24px; 
+            border-radius: 10px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.2s ease;
+        }
+        .btn-danger:hover { background: #ef4444; color: white; }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #444;
+            color: #aaa;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover { border-color: #888; color: #fff; }
+        
+        input, select, textarea { 
+            background: #0a0a0a; 
+            border: 1px solid #333; 
+            color: white; 
+            padding: 14px 16px; 
+            border-radius: 10px; 
+            font-size: 15px;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus { 
+            outline: none; 
+            border-color: #e63946; 
+            box-shadow: 0 0 0 3px rgba(230,57,70,0.15);
+        }
+        .tag { 
+            display: inline-block; 
+            padding: 5px 12px; 
+            background: rgba(230,57,70,0.15); 
+            color: #e63946; 
+            border-radius: 6px; 
+            font-size: 11px; 
+            font-weight: 700; 
+        }
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 480px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.show .modal-box {
+            transform: scale(1);
+        }
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 16px 24px;
+            border-radius: 12px;
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .toast.show { transform: translateX(0); }
+        .toast.success { border-color: #22c55e; }
+        .toast.error { border-color: #ef4444; }
+        
+        /* Item cards in lists */
+        .item-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        .item-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.1);
+        }
+        .delete-btn {
+            opacity: 0;
+            padding: 8px;
+            border-radius: 8px;
+            color: #888;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .item-card:hover .delete-btn {
+            opacity: 1;
+        }
+        .delete-btn:hover {
+            background: rgba(239,68,68,0.15);
+            color: #ef4444;
+        }
+        
+        /* Logo preview area */
+        .logo-preview-area {
+            background: linear-gradient(135deg, rgba(230,57,70,0.05) 0%, rgba(0,0,0,0) 100%);
+            border: 2px dashed #333;
+            border-radius: 16px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .logo-preview-area:hover {
+            border-color: #555;
+            background: linear-gradient(135deg, rgba(230,57,70,0.08) 0%, rgba(0,0,0,0) 100%);
+        }
+        .logo-preview-area img {
+            max-width: 180px;
+            max-height: 180px;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: #666;
+        }
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            opacity: 0.3;
+        }
     </style>
 </head>
-<body class="min-h-screen p-8">
-    <div class="max-w-6xl mx-auto">
-        <!-- Header -->
-        <header class="flex items-center justify-between mb-10">
-            <div class="flex items-center gap-4">
-                <img src="https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png" alt="Logo" class="w-14 h-14 rounded-full">
-                <div>
-                    <h1 class="text-2xl font-bold">Admin Dashboard</h1>
-                    <p class="text-gray-500 text-sm">TOYZ FOR SHOTZ Content Manager</p>
-                </div>
-            </div>
-            <a href="./index.html" class="bg-red-600 px-5 py-2.5 rounded-lg hover:bg-red-700 transition">View Site</a>
-        </header>
+<body>
 
-        <!-- Stats Overview -->
-        <div class="grid grid-cols-4 gap-5 mb-10">
-            <div class="card text-center"><div class="text-3xl font-bold text-red-500" id="statPhotos">0</div><div class="text-sm text-gray-400 mt-1">Photos</div></div>
-            <div class="card text-center"><div class="text-3xl font-bold" id="statProducts">0</div><div class="text-sm text-gray-400 mt-1">Products</div></div>
-            <div class="card text-center"><div class="text-3xl font-bold" id="statPosts">0</div><div class="text-sm text-gray-400 mt-1">Blog Posts</div></div>
-            <div class="card text-center"><div class="text-3xl font-bold text-red-500" id="statVideos">0</div><div class="text-sm text-gray-400 mt-1">Videos</div></div>
-        </div>
-
-        <!-- Add New Photo Section -->
-        <section class="card mb-8">
-            <h2 class="text-xl font-bold mb-6 flex items-center gap-3">
-                <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                Add New Gallery Photo
-            </h2>
-            <form id="photoForm" class="grid md:grid-cols-2 gap-5">
-                <input type="text" name="title" placeholder="Photo Title *" required class="bg-black border border-gray-700 rounded-lg px-4 py-3 focus:border-red-500 outline-none">
-                <select name="category" required class="bg-black border border-gray-700 rounded-lg px-4 py-3 focus:border-red-500 outline-none">
-                    <option value="">Select Category *</option>
-                    <option value="mortalkombat">Mortal Kombat</option>
-                    <option value="starwars">Star Wars</option>
-                    <option value="marvel">Marvel</option>
-                    <option value="behindthescenes">Behind The Scenes</option>
-                    <option value="collections">Collections</option>
-                </select>
-                <input type="url" name="image_url" placeholder="Image URL *" required class="bg-black border border-gray-700 rounded-lg px-4 py-3 focus:border-red-500 outline-none md:col-span-2">
-                <textarea name="description" placeholder="Description (optional)" rows="3" class="bg-black border border-gray-700 rounded-lg px-4 py-3 focus:border-red-500 outline-none md:col-span-2 resize-none"></textarea>
-                <button type="submit" class="bg-red-600 px-6 py-3 rounded-lg hover:bg-red-700 transition font-semibold col-span-2">Upload Photo</button>
-            </form>
-        </section>
-
-        <!-- Recent Photos List -->
-        <section class="card">
-            <h2 class="text-xl font-bold mb-6">Recent Gallery Photos</h2>
-            <div id="photosList" class="space-y-3">
-                <p class="text-gray-500 text-center py-8">Loading...</p>
-            </div>
-        </section>
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast">
+        <span id="toastIcon"></span>
+        <span id="toastMessage" style="flex: 1;"></span>
     </div>
 
-    <script>
-        // === CONFIGURE THESE ===
-        const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
-        const SUPABASE_KEY = 'YOUR_ANON_KEY';
+    <!-- CONFIRMATION MODAL -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-box">
+            <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;" id="modalTitle">Confirm Action</h3>
+            <p style="color: #999; margin-bottom: 24px;" id="modalMessage">Are you sure?</p>
+            <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn-primary" id="modalConfirm" style="background: #ef4444;">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header style="background: rgba(10,10,10,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <img id="headerLogo" src="https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png" alt="Logo" style="width: 48px; height: 48px; border-radius: 50%; object-fit: contain; background: rgba(255,255,255,0.05); padding: 4px;">
+                <div>
+                    <h1 style="font-size: 18px; font-weight: 700; margin: 0;">Admin Dashboard</h1>
+                    <p style="font-size: 13px; color: #666; margin: 2px 0 0 0;">TOYZ FOR SHOTZ Content Manager</p>
+                </div>
+            </div>
+            <a href="./index.html" target="_blank" class="btn-primary">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m-6-6L10 14"/></svg>
+                View Live Site
+            </a>
+        </div>
+    </header>
+
+    <main style="max-width: 1200px; margin: 0 auto; padding: 32px 24px;">
         
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        <!-- STATS BAR -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 32px;">
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 32px; font-weight: 800; color: #e63946;" id="statProducts">0</div>
+                <div style="font-size: 13px; color: #666; margin-top: 4px;">Products</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 32px; font-weight: 800;" id="statPhotos">0</div>
+                <div style="font-size: 13px; color: #666; margin-top: 4px;">Photos</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 32px; font-weight: 800;" id="statVideos">0</div>
+                <div style="font-size: 13px; color: #666; margin-top: 4px;">Videos</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 32px; font-weight: 800;" id="statBlog">0</div>
+                <div style="font-size: 13px; color: #666; margin-top: 4px;">Blog Posts</div>
+            </div>
+        </div>
 
-        // Load stats
-        async function loadStats() {
-            const [photos, products, posts, videos] = await Promise.all([
-                supabase.from('gallery_photos').select('*', { count: 'exact', head: true }),
-                supabase.from('products').select('*', { count: 'exact', head: true }),
-                supabase.from('blog_posts').select('*', { count: 'exact', head: true }),
-                supabase.from('videos').select('*', { count: 'exact', head: true })
-            ]);
-            
-            document.getElementById('statPhotos').textContent = photos.count;
-            document.getElementById('statProducts').textContent = products.count;
-            document.getElementById('statPosts').textContent = posts.count;
-            document.getElementById('statVideos').textContent = videos.count;
+        <!-- TAB BUTTONS -->
+        <div style="display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; border-bottom: 1px solid #222; padding-bottom: 0;">
+            <button class="tab-btn active" onclick="switchTab('products')" data-tab="products">
+                🛒 Products
+            </button>
+            <button class="tab-btn" onclick="switchTab('logo')" data-tab="logo">
+                🖼️ Logo & Branding
+            </button>
+            <button class="tab-btn" onclick="switchTab('gallery')" data-tab="gallery">
+                📸 Gallery Photos
+            </button>
+            <button class="tab-btn" onclick="switchTab('videos')" data-tab="videos">
+                ▶️ Videos
+            </button>
+            <button class="tab-btn" onclick="switchTab('blog')" data-tab="blog">
+                📝 Blog Posts
+            </button>
+        </div>
+
+        <!-- ==================== PRODUCTS TAB ==================== -->
+        <section id="tab-products" class="tab-content">
+            <div class="card" style="margin-bottom: 24px;">
+                <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <svg width="20" height="20" fill="none" stroke="#e63946" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    Add New Product
+                </h2>
+                
+                <form id="productForm" onsubmit="addProduct(event)">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Product Name *</label>
+                            <input type="text" name="name" placeholder="e.g., Scorpion's Fury Print" required>
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Price ($) *</label>
+                            <input type="number" name="price" placeholder="45.00" step="0.01" required>
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Image URL *</label>
+                            <input type="url" name="image" placeholder="https://..." required>
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Type / Category</label>
+                            <select name="category">
+                                <option value="print">Art Print</option>
+                                <option value="canvas">Canvas Print</option>
+                                <option value="merch">Merchandise (T-Shirt, etc)</option>
+                                <option value="digital">Digital Download</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Badge (optional)</label>
+                        <input type="text" name="badge" placeholder="Best Seller, New, Popular... (leave blank for none)">
+                    </div>
+                    <div style="margin-top: 20px; display: flex; gap: 12px;">
+                        <button type="submit" class="btn-primary" style="flex: 1;">Add Product</button>
+                        <button type="button" class="btn-secondary" onclick="document.getElementById('productForm').reset()">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                    <h2 style="font-size: 18px; font-weight: 700;">Current Products (<span id="productCount">0</span>)</h2>
+                    <button onclick="clearAllProducts()" style="font-size: 13px; color: #ef4444; font-weight: 600; background: none; border: none; cursor: pointer;">
+                        Clear All Products
+                    </button>
+                </div>
+                <div id="productsList"></div>
+            </div>
+        </section>
+
+        <!-- ==================== LOGO TAB ==================== -->
+        <section id="tab-logo" class="tab-content hidden">
+            <div class="card" style="max-width: 600px;">
+                <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 24px;">Logo & Branding Settings</h2>
+                
+                <div style="margin-bottom: 32px;">
+                    <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 12px;">Current Logo Preview</label>
+                    <div class="logo-preview-area" id="logoPreviewArea">
+                        <img id="logoPreviewImg" src="" alt="Logo Preview">
+                    </div>
+                </div>
+
+                <form id="logoForm" onsubmit="updateLogo(event)">
+                    <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">New Logo Image URL</label>
+                    <div style="display: flex; gap: 12px;">
+                        <input type="url" name="logoUrl" placeholder="https://i.ibb.co/..." required style="flex: 1;">
+                        <button type="submit" class="btn-primary">Update</button>
+                    </div>
+                </form>
+
+                <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #252525;">
+                    <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 16px;">Where to host your logo image:</h3>
+                    <div style="display: grid; gap: 12px;">
+                        <a href="https://imgbb.com" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 10px; text-decoration: none; color: inherit; border: 1px solid transparent;" onmouseover="this.style.borderColor='#e63946'" onmouseout="this.style.borderColor='transparent'">
+                            <span><strong>ImgBB</strong><br><span style="font-size: 12px; color: #666;">Free, no account needed</span></span>
+                            <span class="tag">Recommended</span>
+                        </a>
+                        <a href="https://i.ibb.co" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 10px; text-decoration: none; color: inherit; border: 1px solid transparent;" onmouseover="this.style.borderColor='#e63946'" onmouseout="this.style.borderColor='transparent'">
+                            <span><strong>IBB.co</strong><br><span style="font-size: 12px; color: #666;">Fast & simple upload</span></span>
+                            <span class="tag">Free</span>
+                        </a>
+                        <a href="https://cloudinary.com" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 10px; text-decoration: none; color: inherit; border: 1px solid transparent;" onmouseover="this.style.borderColor='#e63946'" onmouseout="this.style.borderColor='transparent'">
+                            <span><strong>Cloudinary</strong><br><span style="font-size: 12px; color: #666;">Professional CDN hosting</span></span>
+                            <span class="tag">Pro</span>
+                        </a>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 16px; background: rgba(230,57,70,0.08); border: 1px solid rgba(230,57,70,0.2); border-radius: 10px;">
+                        <p style="font-size: 13px; color: #aaa; margin: 0;"><strong style="color: #e63946;">Tip:</strong> Upload your logo to one of these sites, then copy the "Direct Link" URL and paste it above.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== GALLERY TAB ==================== -->
+        <section id="tab-gallery" class="tab-content hidden">
+            <div class="card" style="margin-bottom: 24px;">
+                <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <svg width="20" height="20" fill="none" stroke="#e63946" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2 0l-1.586-1.586a2 2 0 00-2.828 0L4 16m16 0l-1.586-1.586a2 2 0 00-2.828 0L4 16"/></svg>
+                    Add Photo to Gallery
+                </h2>
+                
+                <form id="galleryForm" onsubmit="addGalleryItem(event)">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Photo Title *</label>
+                            <input type="text" name="title" placeholder="e.g., Dramatic Scorpion Shot" required>
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Image URL *</label>
+                            <input type="url" name="image" placeholder="https://..." required>
+                        </div>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Description (optional)</label>
+                        <textarea name="description" rows="2" placeholder="Tell viewers about this shot..."></textarea>
+                    </div>
+                    <div style="margin-top: 20px; display: flex; gap: 12px;">
+                        <button type="submit" class="btn-primary" style="flex: 1;">Add Photo</button>
+                        <button type="button" class="btn-secondary" onclick="document.getElementById('galleryForm').reset()">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                    <h2 style="font-size: 18px; font-weight: 700;">Your Gallery (<span id="photoCount">0</span> photos)</h2>
+                    <button onclick="clearAllPhotos()" style="font-size: 13px; color: #ef4444; font-weight: 600; background: none; border: none; cursor: pointer;">
+                        Clear All
+                    </button>
+                </div>
+                <div id="galleryList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;"></div>
+            </div>
+        </section>
+
+        <!-- ==================== VIDEOS TAB ==================== -->
+        <section id="tab-videos" class="tab-content hidden">
+            <div class="card" style="margin-bottom: 24px;">
+                <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 20px;">Add Video</h2>
+                
+                <form id="videoForm" onsubmit="addVideo(event)">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Video Title *</label>
+                            <input type="text" name="title" placeholder="e.g., Lighting Setup Tutorial" required>
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Thumbnail Image URL *</label>
+                            <input type="url" name="thumbnail" placeholder="https://..." required>
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">YouTube Video ID</label>
+                            <input type="text" name="youtubeId" placeholder="dQw4w9WgXcQ (from YouTube URL)">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Duration</label>
+                            <input type="text" name="duration" placeholder="18:24">
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <button type="submit" class="btn-primary" style="width: 100%;">Add Video</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 20px;">Your Videos (<span id="videoCount">0</span>)</h2>
+                <div id="videoList"></div>
+            </div>
+        </section>
+
+        <!-- ==================== BLOG TAB ==================== -->
+        <section id="tab-blog" class="tab-content hidden">
+            <div class="card" style="margin-bottom: 24px;">
+                <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 20px;">Write New Blog Post</h2>
+                
+                <form id="blogForm" onsubmit="addBlogPost(event)">
+                    <div style="margin-bottom: 16px;">
+                        <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Post Title *</label>
+                        <input type="text" name="title" placeholder="Enter a compelling title..." required>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Category</label>
+                            <select name="category">
+                                <option value="tutorial">Tutorial</option>
+                                <option value="review">Review</option>
+                                <option value="showcase">Collection Showcase</option>
+                                <option value="news">News</option>
+                                <option value="opinion">Opinion</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Featured Image URL</label>
+                            <input type="url" name="image" placeholder="https://...">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Read Time (min)</label>
+                            <input type="number" name="readTime" value="5" min="1">
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Short Excerpt</label>
+                        <textarea name="excerpt" rows="2" placeholder="A brief summary of what this post is about..."></textarea>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; font-size: 13px; font-weight: 600; color: #aaa; margin-bottom: 8px;">Full Content (supports HTML)</label>
+                        <textarea name="content" rows="6" placeholder="Write your blog post content here... You can use HTML for formatting."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">Publish Post</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 20px;">Published Posts (<span id="blogCount">0</span>)</h2>
+                <div id="blogList"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // =============================================
+        // DATA MANAGEMENT (localStorage)
+        // =============================================
+        
+        const STORAGE_KEYS = {
+            products: 'tfs_products_v2',
+            gallery: 'tfs_gallery_v2',
+            videos: 'tfs_videos_v2',
+            blog: 'tfs_blog_v2',
+            logo: 'tfs_logo_url'
+        };
+        
+        function loadData(key) {
+            try {
+                const data = localStorage.getItem(STORAGE_KEYS[key]);
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                console.error('Error loading', key, e);
+                return [];
+            }
         }
-
-        // Load photos list
-        async function loadPhotos() {
-            const { data, error } = await supabase
-                .from('gallery_photos')
-                .select('*')
-                .order('created_at', { ascending: false })
-                .limit(20);
+        
+        function saveData(key, data) {
+            localStorage.setItem(STORAGE_KEYS[key], JSON.stringify(data));
+        }
+        
+        function getLogoUrl() {
+            return localStorage.getItem(STORAGE_KEYS.logo) || 'https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png';
+        }
+        
+        // =============================================
+        // TOAST NOTIFICATIONS
+        // =============================================
+        
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toastIcon');
+            const msg = document.getElementById('toastMessage');
             
-            if (error) {
-                document.getElementById('photosList').innerHTML = `<p class="text-red-500 text-center">Error loading: ${error.message}</p>`;
+            icon.innerHTML = type === 'success'
+                ? '<svg width="20" height="20" fill="none" stroke="#22c55e" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>'
+                : '<svg width="20" height="20" fill="none" stroke="#ef4444" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>';
+            
+            msg.textContent = message;
+            toast.className = `toast ${type}`;
+            
+            // Show
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3200);
+        }
+        
+        // =============================================
+        // MODAL
+        // =============================================
+        
+        let modalCallback = null;
+        
+        function showModal(title, message, callback) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            modalCallback = callback;
+            document.getElementById('confirmModal').classList.add('show');
+        }
+        
+        function closeModal() {
+            document.getElementById('confirmModal').classList.remove('show');
+            modalCallback = null;
+        }
+        
+        document.getElementById('modalConfirm').addEventListener('click', () => {
+            if (modalCallback) modalCallback();
+            closeModal();
+        });
+        
+        // Close modal on overlay click
+        document.getElementById('confirmModal').addEventListener('click', (e) => {
+            if (e.target.id === 'confirmModal') closeModal();
+        });
+        
+        // =============================================
+        // TAB SWITCHING - FIXED VERSION
+        // =============================================
+        
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Remove active from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            const targetContent = document.getElementById(`tab-${tabName}`);
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
+            }
+            
+            // Activate clicked button
+            const targetBtn = document.querySelector(`[data-tab="${tabName}"]`);
+            if (targetBtn) {
+                targetBtn.classList.add('active');
+            }
+        }
+        
+        // Initialize first tab as active
+        document.addEventListener('DOMContentLoaded', () => {
+            switchTab('products');
+        });
+        
+        // =============================================
+        // PRODUCTS CRUD
+        // =============================================
+        
+        function renderProducts() {
+            const products = loadData('products');
+            const list = document.getElementById('productsList');
+            const countEl = document.getElementById('productCount');
+            const statEl = document.getElementById('statProducts');
+            
+            countEl.textContent = products.length;
+            statEl.textContent = products.length;
+            
+            if (products.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8 0v10l-8 4m0-10L4 7m8 4v10M4 7l8-4"/></svg>
+                        <p style="font-size: 16px; margin-top: 12px;">No products yet</p>
+                        <p style="font-size: 13px; color: #555;">Add your first product using the form above</p>
+                    </div>
+                `;
                 return;
             }
-
-            document.getElementById('photosList').innerHTML = data.map(photo => `
-                <div class="flex items-center gap-4 p-4 bg-black/50 rounded-lg">
-                    <img src="${photo.image_url}" alt="${photo.title}" class="w-16 h-16 object-cover rounded-lg">
-                    <div class="flex-1 min-w-0">
-                        <h3 class="font-medium truncate">${photo.title}</h3>
-                        <p class="text-sm text-gray-400">${photo.category} • ${photo.likes || 0} likes</p>
+            
+            list.innerHTML = products.map((product, index) => `
+                <div class="item-card">
+                    <img src="${product.image}" alt="${product.name}" style="width: 72px; height: 72px; object-fit: cover; border-radius: 8px;">
+                    <div style="flex: 1; min-width: 0;">
+                        <h4 style="font-weight: 600; margin: 0 0 4px 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${product.name}</h4>
+                        <div style="display: flex; align-items: center; gap: 12px; font-size: 14px;">
+                            <span style="color: #e63946; font-weight: 700;">$${Number(product.price).toFixed(2)}</span>
+                            ${product.badge ? `<span class="tag">${product.badge}</span>` : ''}
+                            <span style="color: #666;">${product.category}</span>
+                        </div>
                     </div>
-                    <span class="tag bg-red-500/20 text-red-400 text-xs px-2 py-1 rounded">${photo.category}</span>
-                    <button onclick="deletePhoto(${photo.id})" class="p-2 text-gray-500 hover:text-red-500 transition" title="Delete">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    <button class="delete-btn" onclick="deleteProduct(${index})" title="Delete product">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                     </button>
                 </div>
             `).join('');
         }
-
-        // Add photo form handler
-        document.getElementById('photoForm').addEventListener('submit', async (e) => {
+        
+        function addProduct(e) {
             e.preventDefault();
-            const formData = new FormData(e.target);
+            const form = e.target;
+            const formData = new FormData(form);
             
-            const { data, error } = await supabase.from('gallery_photos').insert([{
+            const product = {
+                id: Date.now(),
+                name: formData.get('name'),
+                price: parseFloat(formData.get('price')),
+                image: formData.get('image'),
+                category: formData.get('category'),
+                badge: formData.get('badge') || ''
+            };
+            
+            const products = loadData('products');
+            products.push(product);
+            saveData('products', products);
+            
+            renderProducts();
+            form.reset();
+            showToast('Product added successfully!');
+        }
+        
+        window.deleteProduct = function(index) {
+            showModal(
+                'Delete Product?',
+                `Remove "${loadData('products')[index].name}" from your store?`,
+                () => {
+                    const products = loadData('products');
+                    products.splice(index, 1);
+                    saveData('products', products);
+                    renderProducts();
+                    showToast('Product deleted');
+                }
+            );
+        };
+        
+        window.clearAllProducts = function() {
+            const products = loadData('products');
+            if (products.length === 0) {
+                showToast('No products to clear', 'error');
+                return;
+            }
+            showModal(
+                'Clear All Products?',
+                `Remove ALL ${products.length} products? This cannot be undone.`,
+                () => {
+                    saveData('products', []);
+                    renderProducts();
+                    showToast(`Cleared ${products.length} products`);
+                }
+            );
+        };
+        
+        // =============================================
+        // LOGO MANAGEMENT
+        // =============================================
+        
+        function updateLogoDisplay() {
+            const url = getLogoUrl();
+            document.getElementById('logoPreviewImg').src = url;
+            document.getElementById('headerLogo').src = url;
+        }
+        
+        function updateLogo(e) {
+            e.preventDefault();
+            const url = new FormData(e.target).get('logoUrl');
+            
+            // Validate it's an image URL
+            if (!url.match(/\.(jpg|jpeg|png|gif|webp|svg)/i) && !url.includes('ibb.co') && !url.includes('imgbb')) {
+                showToast('Please enter a valid image URL', 'error');
+                return;
+            }
+            
+            saveData('logo', url);
+            updateLogoDisplay();
+            showToast('Logo updated! Refresh your live site to see changes.');
+            e.target.reset();
+        }
+        
+        // =============================================
+        // GALLERY CRUD - NO CATEGORIES!
+        // =============================================
+        
+        function renderGallery() {
+            const gallery = loadData('gallery');
+            const list = document.getElementById('galleryList');
+            const countEl = document.getElementById('photoCount');
+            const statEl = document.getElementById('statPhotos');
+            
+            countEl.textContent = gallery.length;
+            statEl.textContent = gallery.length;
+            
+            if (gallery.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2 0l-1.586-1.586a2 2 0 00-2.828 0L4 16m16 0l-1.586-1.586a2 2 0 00-2.828 0L4 16"/></svg>
+                        <p style="font-size: 16px; margin-top: 12px;">No photos yet</p>
+                        <p style="font-size: 13px; color: #555;">Start building your gallery by adding photos above</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = gallery.map((photo, index) => `
+                <div class="item-card" style="padding: 0; overflow: hidden; border-radius: 12px; position: relative;">
+                    <img src="${photo.image}" alt="${photo.title}" style="width: 100%; aspect-ratio: 4/3; object-fit: cover;">
+                    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 16px; display: flex; flex-direction: column; justify-content: flex-end;">
+                        <h4 style="font-weight: 600; font-size: 14px; margin: 0 0 4px 0;">${photo.title}</h4>
+                        ${photo.description ? `<p style="font-size: 12px; color: #aaa; margin: 0; line-clamp: 2;">${photo.description}</p>` : ''}
+                    </div>
+                    <button class="delete-btn" onclick="deletePhoto(${index})" style="position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.7);" title="Remove photo">
+                        <svg width="16" height="16" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+        
+        function addGalleryItem(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            
+            const item = {
+                id: Date.now(),
+                title: formData.get('title'),
+                image: formData.get('image'),
+                description: formData.get('description') || '',
+                date: new Date().toISOString()
+            };
+            
+            const gallery = loadData('gallery');
+            gallery.push(item);
+            saveData('gallery', gallery);
+            
+            renderGallery();
+            form.reset();
+            showToast('Photo added to gallery!');
+        }
+        
+        window.deletePhoto = function(index) {
+            showModal(
+                'Remove Photo?',
+                'Delete this photo from your gallery?',
+                () => {
+                    const gallery = loadData('gallery');
+                    gallery.splice(index, 1);
+                    saveData('gallery', gallery);
+                    renderGallery();
+                    showToast('Photo removed');
+                }
+            );
+        };
+        
+        window.clearAllPhotos = function() {
+            const gallery = loadData('gallery');
+            if (gallery.length === 0) {
+                showToast('No photos to clear', 'error');
+                return;
+            }
+            showModal(
+                'Clear Gallery?',
+                `Remove ALL ${gallery.length} photos?`,
+                () => {
+                    saveData('gallery', []);
+                    renderGallery();
+                    showToast('Gallery cleared');
+                }
+            );
+        };
+        
+        // =============================================
+        // VIDEOS CRUD
+        // =============================================
+        
+        function renderVideos() {
+            const videos = loadData('videos');
+            const list = document.getElementById('videoList');
+            const countEl = document.getElementById('videoCount');
+            const statEl = document.getElementById('statVideos');
+            
+            countEl.textContent = videos.length;
+            statEl.textContent = videos.length;
+            
+            if (videos.length === 0) {
+                list.innerHTML = '<div class="empty-state"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.752 15.168l-3.105-6m3.105.01a6.002 6.002 0 01-9.555-5.602c-.96-.19-1.95-.27-2.947-.27a6 6 0 00-5.206 5.202c-.96.192-1.943.298-2.902.54m5.762.08a6 6 0 01-5.413-4.273m8.84 4.06a6 6 0 00-9.542-3.09m0 0a6 6 0 101.41 1.41m0 0a6 6 0 001.42-1.42"/></svg><p style="font-size: 16px; margin-top: 12px;">No videos yet</p></div>';
+                return;
+            }
+            
+            list.innerHTML = videos.map((video, index) => `
+                <div class="item-card">
+                    <img src="${video.thumbnail}" alt="${video.title}" style="width: 100px; height: 56px; object-fit: cover; border-radius: 8px;">
+                    <div style="flex: 1; min-width: 0;">
+                        <h4 style="font-weight: 600; margin: 0 0 4px 0;">${video.title}</h4>
+                        <div style="display: flex; gap: 16px; font-size: 13px; color: #888;">
+                            ${video.duration ? `<span>${video.duration}</span>` : ''}
+                            ${video.youtubeId ? `<span style="color: #e63946;">YouTube</span>` : ''}
+                        </div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteVideo(${index})" title="Delete video">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+        
+        function addVideo(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            
+            const video = {
+                id: Date.now(),
+                title: formData.get('title'),
+                thumbnail: formData.get('thumbnail'),
+                youtubeId: formData.get('youtubeId') || '',
+                duration: formData.get('duration') || ''
+            };
+            
+            const videos = loadData('videos');
+            videos.push(video);
+            saveData('videos', videos);
+            
+            renderVideos();
+            form.reset();
+            showToast('Video added!');
+        }
+        
+        window.deleteVideo = function(index) {
+            showModal('Remove Video?', 'Delete this video?', () => {
+                const videos = loadData('videos');
+                videos.splice(index, 1);
+                saveData('videos', videos);
+                renderVideos();
+                showToast('Video deleted');
+            });
+        };
+        
+        // =============================================
+        // BLOG CRUD
+        // =============================================
+        
+        function renderBlog() {
+            const posts = loadData('blog');
+            const list = document.getElementById('blogList');
+            const countEl = document.getElementById('blogCount');
+            const statEl = document.getElementById('statBlog');
+            
+            countEl.textContent = posts.length;
+            statEl.textContent = posts.length;
+            
+            if (posts.length === 0) {
+                list.innerHTML = '<div class="empty-state"><p style="font-size: 16px; margin-top: 12px;">No blog posts yet</p><p style="font-size: 13px; color: #555;">Start writing!</p></div>';
+                return;
+            }
+            
+            list.innerHTML = posts.map((post, index) => `
+                <div class="item-card" style="flex-direction: column; align-items: stretch;">
+                    <div style="display: flex; gap: 16px;">
+                        <img src="${post.image}" alt="${post.title}" style="width: 80px; height: 56px; object-fit: cover; border-radius: 8px;">
+                        <div style="flex: 1; min-width: 0;">
+                            <h4 style="font-weight: 600; margin: 0 0 4px 0;">${post.title}</h4>
+                            <div style="display: flex; gap: 12px; font-size: 13px; color: #888;">
+                                <span class="tag">${post.category}</span>
+                                <span>${post.readTime} min read</span>
+                            </div>
+                        </div>
+                    </div>
+                    ${post.excerpt ? `<p style="font-size: 13px; color: #888; margin-top: 12px; line-height: 1.5;">${post.excerpt}</p>` : ''}
+                    <button class="delete-btn" onclick="deletePost(${index})" style="align-self: flex-end; margin-top: 8px;" title="Delete post">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+        
+        function addBlogPost(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            
+            const post = {
+                id: Date.now(),
                 title: formData.get('title'),
                 category: formData.get('category'),
-                image_url: formData.get('image_url'),
-                description: formData.get('description'),
-                likes: Math.floor(Math.random() * 1000)
-            }]).select();
-
-            if (error) {
-                alert('Error: ' + error.message);
-            } else {
-                e.target.reset();
-                loadPhotos();
-                loadStats();
-                alert('Photo added successfully!');
-            }
-        });
-
-        // Delete photo
-        window.deletePhoto = async (id) => {
-            if (!confirm('Delete this photo?')) return;
-            const { error } = await supabase.from('gallery_photos').delete().eq('id', id);
-            if (!error) { loadPhotos(); loadStats(); }
+                readTime: parseInt(formData.get('readTime')) || 5,
+                image: formData.get('image'),
+                excerpt: formData.get('excerpt') || '',
+                content: formData.get('content') || '',
+                published: true,
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            };
+            
+            const posts = loadData('blog');
+            posts.unshift(post); // Add to beginning
+            saveData('blog', posts);
+            
+            renderBlog();
+            form.reset();
+            showToast('Blog post published!');
+        }
+        
+        window.deletePost = function(index) {
+            showModal('Delete Post?', 'Delete this blog post?', () => {
+                const posts = loadData('blog');
+                posts.splice(index, 1);
+                saveData('blog', posts);
+                renderBlog();
+                showToast('Post deleted');
+            });
         };
-
-        // Init
-        loadStats();
-        loadPhotos();
+        
+        // =============================================
+        // INITIALIZATION
+        // =============================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render everything
+            renderProducts();
+            updateLogoDisplay();
+            renderGallery();
+            renderVideos();
+            renderBlog();
+            
+            console.log('%c TOYZ FOR SHOTZ Admin ', 'background: #e63946; color: white; padding: 8px 16px; border-radius: 4px; font-size: 14px;');
+            console.log('Dashboard ready. Changes saved to browser storage.');
+        });
     </script>
 </body>
 </html>
