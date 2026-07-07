@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TOYZ FOR SHOTZ - Cinematic toy photography featuring Mortal Kombat, Star Wars, Marvel action figures. Professional toy photography tips, behind-the-scenes content, and exclusive art prints.">
+    <meta name="keywords" content="toy photography, action figures, Mortal Kombat, Star Wars, Marvel, collectibles, photography tutorials">
+    <meta name="author" content="TOYZ FOR SHOTZ">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TOYZ FOR SHOTZ | Cinematic Toy Photography">
+    <meta property="og:description" content="Professional toy photography showcasing pop culture action figures with dramatic lighting and custom backdrops.">
+    <meta property="og:image" content="https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "TOYZ FOR SHOTZ",
+        "url": "https://toyzforshotz.com",
+        "logo": "https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png"
+    }
+    </script>
+    
+    <title>TOYZ FOR SHOTZ | Cinematic Toy Photography</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'tfs-black': '#0a0a0a',
+                        'tfs-dark': '#111111',
+                        'tfs-card': '#1a1a1a',
+                        'tfs-red': '#e63946',
+                        'tfs-red-hover': '#ff4757',
+                        'tfs-gray': '#2d2d2d',
+                    },
+                    fontFamily: {
+                        'display': ['Bebas Neue', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: #1a1a1a;
+            --accent: #e63946;
+            --accent-hover: #ff4757;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --border-color: #252525;
+        }
+        
+        * { scrollbar-width: thin; scrollbar-color: var(--accent) var(--bg-secondary); }
+        *::-webkit-scrollbar { width: 8px; height: 8px; }
+        *::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        *::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+        
+        html { scroll-behavior: smooth; }
+        
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), #ff6b6b);
+            z-index: 10000;
+            transition: width 0.05s linear;
+        }
+        
+        .hero-bg { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(230, 57, 70, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(230, 57, 70, 0.08) 0%, transparent 50%);
+            animation: heroFloat 25s ease-in-out infinite;
+        }
+        
+        @keyframes heroFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, 2%) rotate(1deg); }
+            66% { transform: translate(-1%, 1%) rotate(-1deg); }
+        }
+        
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+        
+        .noise-overlay::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.02;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+        
+        .card-hover {
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+                        box-shadow 0.4s ease,
+                        border-color 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(230, 57, 70, 0.12);
+            border-color: rgba(230, 57, 70, 0.5);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, #d62839 100%);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.35);
+        }
+        
+        .btn-primary:hover::before { opacity: 1; }
+        .btn-primary span, .btn-primary i { position: relative; z-index: 1; }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .masonry-grid { columns: 4; column-gap: 24px; }
+        @media (max-width: 1280px) { .masonry-grid { columns: 3; } }
+        @media (max-width: 768px) { .masonry-grid { columns: 2; } }
+        @media (max-width: 480px) { .masonry-grid { columns: 1; } }
+        .masonry-item { break-inside: avoid; margin-bottom: 24px; }
+        
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.97);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.35s ease;
+            backdrop-filter: blur(30px);
+        }
+        
+        .lightbox.active { opacity: 1; visibility: visible; }
+        
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 12px;
+            transform: scale(0.92);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .lightbox.active img { transform: scale(1); }
+        
+        .nav-link {
+            position: relative;
+            padding: 10px 18px;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after { width: 70%; }
+        .nav-link:hover, .nav-link.active { color: var(--accent); }
+        
+        .filter-pill {
+            padding: 10px 22px;
+            border-radius: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .filter-pill:hover, .filter-pill.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            min-width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5px;
+        }
+        
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(45px);
+            transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .reveal-section.revealed { opacity: 1; transform: translateY(0); }
+        
+        .stagger-children > * { opacity: 0; transform: translateY(25px); }
+        
+        .stagger-children.revealed > *:nth-child(1) { animation: fadeUp 0.65s 0.08s forwards; }
+        .stagger-children.revealed > *:nth-child(2) { animation: fadeUp 0.65s 0.16s forwards; }
+        .stagger-children.revealed > *:nth-child(3) { animation: fadeUp 0.65s 0.24s forwards; }
+        .stagger-children.revealed > *:nth-child(4) { animation: fadeUp 0.65s 0.32s forwards; }
+        .stagger-children.revealed > *:nth-child(5) { animation: fadeUp 0.65s 0.40s forwards; }
+        .stagger-children.revealed > *:nth-child(6) { animation: fadeUp 0.65s 0.48s forwards; }
+        .stagger-children.revealed > *:nth-child(n+7) { animation: fadeUp 0.65s 0.56s forwards; }
+        
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .float-element { animation: float 7s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(2deg); }
+        }
+        
+        .product-card { position: relative; overflow: hidden; }
+        
+        .product-card .product-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 55%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .product-card:hover .product-overlay { opacity: 1; }
+        
+        .product-card .quick-actions {
+            position: absolute;
+            bottom: 20px;
+            left: 16px;
+            right: 16px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        
+        .product-card:hover .quick-actions { transform: translateY(0); opacity: 1; }
+        
+        .video-thumb { position: relative; overflow: hidden; }
+        
+        .video-thumb::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 1;
+            transition: background 0.4s ease;
+        }
+        
+        .video-thumb:hover::before { background: rgba(230, 57, 70, 0.35); }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            z-index: 2;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .video-thumb:hover .play-button { transform: translate(-50%, -50%) scale(1.15); }
+        
+        .blog-card .blog-image { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        .blog-card:hover .blog-image { transform: scale(1.06); }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 54px;
+            height: 54px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.35s ease;
+            z-index: 998;
+            box-shadow: 0 6px 25px rgba(230, 57, 70, 0.4);
+            border: none;
+        }
+        
+        .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        .back-to-top:hover { transform: translateY(-5px); box-shadow: 0 12px 35px rgba(230, 57, 70, 0.55); }
+        
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 10, 10, 0.98);
+            z-index: 99998;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(30px);
+        }
+        
+        .mobile-menu.active { opacity: 1; visibility: visible; }
+        
+        .mobile-menu a {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            letter-spacing: 3px;
+            color: white;
+            transition: color 0.3s ease;
+        }
+        
+        .mobile-menu a:hover { color: var(--accent); }
+        
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 24px;
+            z-index: 99997;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .cookie-banner.visible { transform: translateY(0); }
+        
+        .search-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.97);
+            z-index: 99996;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 130px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.35s ease;
+        }
+        
+        .search-modal.active { opacity: 1; visibility: visible; }
+        
+        .search-input {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            padding: 18px 26px 18px 58px;
+            font-size: 19px;
+            width: 100%;
+            max-width: 650px;
+            color: white;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.15);
+        }
+        
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 420px;
+            max-width: 92vw;
+            height: 100vh;
+            background: var(--bg-secondary);
+            z-index: 99995;
+            transform: translateX(100%);
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: -10px 0 60px rgba(0,0,0,0.5);
+        }
+        
+        .cart-sidebar.active { transform: translateX(0); }
+        
+        .tag {
+            display: inline-block;
+            padding: 5px 14px;
+            background: rgba(230, 57, 70, 0.12);
+            color: var(--accent);
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        
+        a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 16px;
+            background: var(--accent);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 10px;
+            z-index: 100001;
+            transition: top 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .skip-link:focus { top: 16px; }
+        
+        /* Admin Panel Styles */
+        .admin-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: linear-gradient(90deg, #1a1a2e, #16213e);
+            z-index: 100002;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            transform: translateY(-100%);
+            transition: transform 0.35s ease;
+        }
+        
+        .admin-bar.visible { transform: translateY(0); }
+        
+        .admin-panel {
+            position: fixed;
+            top: 48px;
+            right: 0;
+            width: 380px;
+            max-width: 95vw;
+            height: calc(100vh - 48px);
+            background: var(--bg-secondary);
+            z-index: 100002;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            overflow-y: auto;
+            border-left: 1px solid var(--border-color);
+        }
+        
+        .admin-panel.visible { transform: translateX(0); }
+        
+        .editable {
+            position: relative;
+            cursor: text;
+            transition: all 0.2s ease;
+        }
+        
+        .editable:hover {
+            outline: 2px dashed rgba(230, 57, 70, 0.4);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+        
+        .edit-indicator {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 22px;
+            height: 22px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .admin-mode .edit-indicator { display: flex; opacity: 1; }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        
+        .pulse-badge::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            animation: pulse-ring 1.5s infinite;
+        }
+        
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        
+        .logo-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: contain;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .logo-container:hover .logo-img {
+            transform: scale(1.08) rotate(-3deg);
+            box-shadow: 0 0 30px rgba(230, 57, 70, 0.4);
+        }
+        
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; color: black; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- ADMIN BAR -->
+    <div class="admin-bar no-print" id="adminBar">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-tfs-red flex items-center justify-center">
+                <i data-lucide="shield" class="w-4 h-4"></i>
+            </div>
+            <span class="font-semibold text-sm">Admin Mode Active</span>
+            <span class="text-xs bg-tfs-red/20 text-tfs-red px-2 py-1 rounded">CMS Demo</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <button onclick="toggleAdminPanel()" class="text-sm hover:text-tfs-red transition-colors flex items-center gap-2">
+                <i data-lucide="settings" class="w-4 h-4"></i> Content Manager
+            </button>
+            <button onclick="toggleAdminMode()" class="text-sm text-white/60 hover:text-white transition-colors">Exit Admin</button>
+        </div>
+    </div>
+    
+    <!-- ADMIN PANEL -->
+    <aside class="admin-panel no-print" id="adminPanel">
+        <div class="p-6 border-b border-white/10">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="font-display text-xl tracking-wide">Content Manager</h2>
+                <button onclick="toggleAdminPanel()" class="p-2 hover:bg-white/5 rounded-lg"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <p class="text-xs text-white/40">Click any highlighted element on the page to edit its content.</p>
+        </div>
+        
+        <div class="p-6 space-y-6">
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-white/40 mb-3">Quick Actions</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="showNotification('New post editor opened!')" class="p-3 bg-tfs-dark rounded-lg text-sm hover:bg-tfs-red/20 hover:border-tfs-red/30 border border-transparent transition-all flex flex-col items-center gap-2">
+                        <i data-lucide="plus-circle" class="w-5 h-5 text-tfs-red"></i> Add Post
+                    </button>
+                    <button onclick="showNotification('Image uploader opened!')" class="p-3 bg-tfs-dark rounded-lg text-sm hover:bg-tfs-red/20 hover:border-tfs-red/30 border border-transparent transition-all flex flex-col items-center gap-2">
+                        <i data-lucide="image-plus" class="w-5 h-5 text-tfs-red"></i> Upload Photo
+                    </button>
+                    <button onclick="showNotification('Product form opened!')" class="p-3 bg-tfs-dark rounded-lg text-sm hover:bg-tfs-red/20 hover:border-tfs-red/30 border border-transparent transition-all flex flex-col items-center gap-2">
+                        <i data-lucide="package-plus" class="w-5 h-5 text-tfs-red"></i> Add Product
+                    </button>
+                    <button onclick="showNotification('Video embed tool opened!')" class="p-3 bg-tfs-dark rounded-lg text-sm hover:bg-tfs-red/20 hover:border-tfs-red/30 border border-transparent transition-all flex flex-col items-center gap-2">
+                        <i data-lucide="video" class="w-5 h-5 text-tfs-red"></i> Add Video
+                    </button>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-white/40 mb-3">Recent Changes</h3>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3 p-3 bg-tfs-dark rounded-lg">
+                        <div class="w-8 h-8 rounded bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="check" class="w-4 h-4 text-green-400"></i></div>
+                        <div><p class="text-sm">Updated hero headline</p><p class="text-xs text-white/30">2 minutes ago</p></div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-tfs-dark rounded-lg">
+                        <div class="w-8 h-8 rounded bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="image" class="w-4 h-4 text-blue-400"></i></div>
+                        <div><p class="text-sm">Added 3 gallery photos</p><p class="text-xs text-white/30">1 hour ago</p></div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-tfs-dark rounded-lg">
+                        <div class="w-8 h-8 rounded bg-purple-500/20 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="file-text" class="w-4 h-4 text-purple-400"></i></div>
+                        <div><p class="text-sm">Published new blog post</p><p class="text-xs text-white/30">Yesterday</p></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-white/40 mb-3">Live Stats</h3>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="p-4 bg-tfs-dark rounded-lg text-center"><div class="font-display text-2xl text-tfs-red">24</div><div class="text-xs text-white/40">Gallery Items</div></div>
+                    <div class="p-4 bg-tfs-dark rounded-lg text-center"><div class="font-display text-2xl">8</div><div class="text-xs text-white/40">Products</div></div>
+                    <div class="p-4 bg-tfs-dark rounded-lg text-center"><div class="font-display text-2xl">6</div><div class="text-xs text-white/40">Blog Posts</div></div>
+                    <div class="p-4 bg-tfs-dark rounded-lg text-center"><div class="font-display text-2xl text-tfs-red">6</div><div class="text-xs text-white/40">Videos</div></div>
+                </div>
+            </div>
+            
+            <div class="p-4 bg-tfs-red/10 border border-tfs-red/20 rounded-lg">
+                <div class="flex items-start gap-3">
+                    <i data-lucide="info" class="w-5 h-5 text-tfs-red flex-shrink-0 mt-0.5"></i>
+                    <div class="text-sm">
+                        <p class="font-medium text-tfs-red mb-1">WordPress Integration Ready</p>
+                        <p class="text-xs text-white/50">This demo shows the editing UI. In production, connect to WordPress REST API for real content management.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+    
+    <div class="reading-progress no-print" id="readingProgress" role="progressbar" aria-label="Reading progress"></div>
+    
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-tfs-black/92 backdrop-blur-xl border-b border-white/5 no-print" id="mainHeader">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <a href="#home" class="logo-container group" aria-label="TOYZ FOR SHOTZ Home">
+                    <img src="https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png" alt="TOYZ FOR SHOTZ Logo - Red circular logo with toy brick camera icon" class="logo-img" onerror="this.alt='TFS Logo'; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2248%22 fill=%22%23e63946%22/%3E%3Crect x=%2225%22 y=%2230%22 width=%2220%22 height=%2235%22 fill=%22%23000%22 rx=%222%22/%3E%3Ccircle cx=%2235%22 cy=%2235%22 r=%224%22 fill=%22%23e63946%22/%3E%3Ctext x=%2252%22 y=%2240%22 fill=%22white%22 font-family=%22Arial Black%22 font-size=%2212%22%3ETOYZ%3C/text%3E%3Ctext x=%2252%22 y=%2255%22 fill=%22white%22 font-family=%22Arial Black%22 font-size=%2212%22%3EFOR%3C/text%3E%3Ctext x=%2252%22 y=%2270%22 fill=%22white%22 font-family=%22Arial Black%22 font-size=%2212%22%3ESHOTZ%3C/text%3E%3C/svg%3E'">
+                    <span class="font-display text-xl md:text-2xl tracking-wider text-white group-hover:text-tfs-red transition-colors">TOYZ FOR SHOTZ</span>
+                </a>
+                
+                <div class="hidden lg:flex items-center gap-1">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#gallery" class="nav-link">Gallery</a>
+                    <a href="#store" class="nav-link">Store</a>
+                    <a href="#videos" class="nav-link">Videos</a>
+                    <a href="#blog" class="nav-link">Blog</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                
+                <div class="flex items-center gap-3 md:gap-4">
+                    <button id="adminToggleBtn" onclick="toggleAdminMode()" class="hidden sm:flex p-2 hover:bg-white/5 rounded-lg transition-colors relative" title="Toggle Admin Mode (Ctrl+Shift+A)" style="display: none;">
+                        <span class="relative pulse-badge"><i data-lucide="shield-check" class="w-5 h-5 text-tfs-red"></i></span>
+                    </button>
+                    
+                    <button id="searchToggle" class="p-2 hover:bg-white/5 rounded-lg transition-colors" aria-label="Search site"><i data-lucide="search" class="w-5 h-5"></i></button>
+                    
+                    <button id="cartToggle" class="relative p-2 hover:bg-white/5 rounded-lg transition-colors" aria-label="Shopping cart">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                        <span class="cart-badge" id="cartCount">0</span>
+                    </button>
+                    
+                    <a href="#newsletter" class="hidden md:inline-flex btn-primary text-sm"><span>Subscribe</span></a>
+                    
+                    <button id="mobileMenuToggle" class="lg:hidden p-2 hover:bg-white/5 rounded-lg transition-colors" aria-label="Open menu"><i data-lucide="menu" class="w-6 h-6" id="menuIcon"></i></button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+        <button id="mobileMenuClose" class="absolute top-6 right-6 p-2" aria-label="Close menu"><i data-lucide="x" class="w-8 h-8"></i></button>
+        <img src="https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png" alt="TOYZ FOR SHOTZ" class="w-20 h-20 mb-4">
+        <a href="#home">Home</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#store">Store</a>
+        <a href="#videos">Videos</a>
+        <a href="#blog">Blog</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#newsletter" class="btn-primary mt-4"><span>Subscribe</span></a>
+    </div>
+    
+    <!-- SEARCH MODAL -->
+    <div class="search-modal" id="searchModal" role="dialog" aria-modal="true" aria-label="Site search">
+        <button id="searchClose" class="absolute top-6 right-6 p-2 text-white/60 hover:text-white" aria-label="Close search"><i data-lucide="x" class="w-8 h-8"></i></button>
+        <div class="w-full px-4 relative">
+            <i data-lucide="search" class="absolute left-8 top-1/2 -translate-y-1/2 w-6 h-6 text-white/40"></i>
+            <input type="text" class="search-input" placeholder="Search photos, posts, products..." aria-label="Search" id="searchInput">
+            <div class="mt-6 text-sm text-white/40 flex items-center gap-4">
+                <kbd class="px-3 py-1.5 bg-white/10 rounded-lg text-xs font-mono">ESC</kbd><span>to close</span>
+                <kbd class="px-3 py-1.5 bg-white/10 rounded-lg text-xs font-mono">/</kbd><span>to focus</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CART SIDEBAR -->
+    <aside class="cart-sidebar" id="cartSidebar" role="dialog" aria-modal="true" aria-label="Shopping cart">
+        <div class="p-6 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png" alt="" class="w-10 h-10">
+                <h2 class="font-display text-2xl tracking-wide">Your Cart</h2>
+            </div>
+            <button id="cartClose" class="p-2 hover:bg-white/5 rounded-lg" aria-label="Close cart"><i data-lucide="x" class="w-6 h-6"></i></button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-6" id="cartItems"></div>
+        <div class="p-6 border-t border-white/10 space-y-4">
+            <div class="flex items-center justify-between text-lg"><span>Subtotal</span><span class="font-bold text-tfs-red" id="cartTotal">$0.00</span></div>
+            <button class="btn-primary w-full"><span>Checkout Securely</span><i data-lucide="lock" class="w-4 h-4"></i></button>
+            <p class="text-xs text-center text-white/30">Powered by Printify & Stripe</p>
+        </div>
+    </aside>
+    
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+        
+        <!-- HERO SECTION -->
+        <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-0">
+            <div class="hero-bg grid-pattern noise-overlay"></div>
+            
+            <div class="absolute top-1/4 left-8 md:left-16 w-20 md:w-28 h-20 md:h-28 border border-tfs-red/15 rounded-full float-element" style="animation-delay: 0s;"></div>
+            <div class="absolute bottom-1/3 right-8 md:right-20 w-28 md:w-40 h-28 md:h-40 border border-tfs-red/10 rounded-full float-element" style="animation-delay: 2.5s;"></div>
+            <div class="absolute top-1/2 right-1/4 w-4 h-4 bg-tfs-red/25 rounded-full float-element" style="animation-delay: 1.2s;"></div>
+            <div class="absolute bottom-1/4 left-1/4 w-3 h-3 bg-tfs-red/20 rounded-full float-element" style="animation-delay: 3s;"></div>
+            
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 text-center">
+                <div class="stagger-children revealed" id="heroContent">
+                    <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-tfs-red/10 border border-tfs-red/20 rounded-full mb-8 editable" data-field="hero_badge">
+                        <span class="w-2.5 h-2.5 bg-tfs-red rounded-full animate-pulse"></span>
+                        <span class="text-sm font-semibold text-tfs-red tracking-wide">CINEMATIC TOY PHOTOGRAPHY</span>
+                        <span class="edit-indicator"><i data-lucide="edit-2" class="w-3 h-3 text-white"></i></span>
+                    </div>
+                    
+                    <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.9] tracking-wide mb-6 editable" data-field="hero_headline">
+                        WHERE <span class="text-tfs-red">TOYS</span><br class="sm:hidden md:block"> BECOME <span class="text-tfs-red">ART</span>
+                        <span class="edit-indicator"><i data-lucide="edit-2" class="w-3 h-3 text-white"></i></span>
+                    </h1>
+                    
+                    <p class="text-base md:text-lg lg:text-xl text-white/55 max-w-2xl mx-auto mb-10 leading-relaxed editable" data-field="hero_subheadline">
+                        Dramatic photography of Mortal Kombat, Star Wars, Marvel & more. Professional techniques, behind-the-scenes content, and premium art prints.
+                        <span class="edit-indicator"><i data-lucide="edit-2" class="w-3 h-3 text-white"></i></span>
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 editable" data-field="hero_ctas">
+                        <a href="#gallery" class="btn-primary text-lg px-9 py-4"><span>Explore Gallery</span><i data-lucide="arrow-right" class="w-5 h-5"></i></a>
+                        <a href="#store" class="btn-secondary text-lg px-9 py-4">Shop Prints<i data-lucide="shopping-bag" class="w-5 h-5"></i></a>
+                        <span class="edit-indicator"><i data-lucide="edit-2" class="w-3 h-3 text-white"></i></span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 max-w-3xl mx-auto editable" data-field="hero_stats">
+                        <div class="text-center"><div class="font-display text-3xl md:text-5xl text-tfs-red counter" data-target="500">0</div><div class="text-xs md:text-sm text-white/35 mt-1">Photos Posted</div></div>
+                        <div class="text-center"><div class="font-display text-3xl md:text-5xl text-white counter" data-target="25000">0</div><div class="text-xs md:text-sm text-white/35 mt-1">Instagram Followers</div></div>
+                        <div class="text-center"><div class="font-display text-3xl md:text-5xl text-white counter" data-target="150">0</div><div class="text-xs md:text-sm text-white/35 mt-1">Figures Collected</div></div>
+                        <div class="text-center"><div class="font-display text-3xl md:text-5xl text-tfs-red counter" data-target="50">0</div><div class="text-xs md:text-sm text-white/35 mt-1">Tutorial Videos</div></div>
+                        <span class="edit-indicator"><i data-lucide="edit-2" class="w-3 h-3 text-white"></i></span>
+                    </div>
+                </div>
+                
+                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+                    <a href="#featured" class="flex flex-col items-center gap-2 text-white/30 hover:text-tfs-red transition-colors" aria-label="Scroll down">
+                        <span class="text-[10px] uppercase tracking-[0.25em] font-semibold">Scroll Down</span>
+                        <i data-lucide="chevrons-down" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FEATURED GALLERY -->
+        <section id="featured" class="py-20 md:py-32 bg-tfs-dark relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="reveal-section">
+                    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+                        <div class="editable" data-field="featured_section_title">
+                            <span class="tag mb-4 inline-block">Featured Work</span>
+                            <h2 class="font-display text-4xl md:text-6xl tracking-wide">LATEST SHOTS</h2>
+                            <span class="edit-indicator"><i data-lucide="edit-2" class="w-3 h-3 text-white"></i></span>
+                        </div>
+                        <a href="#gallery" class="btn-secondary self-start md:self-auto">View All Photos<i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-section stagger-children" id="featuredGrid"></div>
+            </div>
+        </section>
+        
+        <!-- GALLERY SECTION -->
+        <section id="gallery" class="py-20 md:py-32 bg-tfs-black relative">
+            <div class="absolute inset-0 grid-pattern opacity-40"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="reveal-section text-center mb-12">
+                    <span class="tag mb-4 inline-block">Portfolio</span>
+                    <h2 class="font-display text-4xl md:text-6xl tracking-wide mb-4">PHOTO GALLERY</h2>
+                    <p class="text-white/45 max-w-2xl mx-auto">Browse my complete collection of cinematic toy photography, organized by franchise and style.</p>
+                </div>
+                <div class="reveal-section flex flex-wrap justify-center gap-3 mb-12" id="galleryFilters">
+                    <button class="filter-pill active" data-filter="all">All Photos</button>
+                    <button class="filter-pill" data-filter="mortalkombat">Mortal Kombat</button>
+                    <button class="filter-pill" data-filter="starwars">Star Wars</button>
+                    <button class="filter-pill" data-filter="marvel">Marvel</button>
+                    <button class="filter-pill" data-filter="behindthescenes">Behind The Scenes</button>
+                    <button class="filter-pill" data-filter="collections">Collections</button>
+                </div>
+                <div class="reveal-section flex items-center justify-between mb-8">
+                    <p class="text-sm text-white/35"><span id="photoCount">24</span> photos</p>
+                    <select id="sortSelect" class="bg-tfs-dark border border-white/10 rounded-lg px-4 py-2.5 text-sm focus:border-tfs-red focus:outline-none cursor-pointer" aria-label="Sort gallery">
+                        <option value="newest">Newest First</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="oldest">Oldest First</option>
+                    </select>
+                </div>
+                <div class="masonry-grid reveal-section stagger-children" id="galleryGrid"></div>
+                <div class="text-center mt-14 reveal-section">
+                    <button id="loadMorePhotos" class="btn-secondary">Load More Photos<i data-lucide="plus" class="w-4 h-4 ml-2"></i></button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- STORE SECTION -->
+        <section id="store" class="py-20 md:py-32 bg-tfs-dark relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-tfs-red/4 rounded-full blur-[120px]"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="reveal-section text-center mb-12">
+                    <span class="tag mb-4 inline-block">Shop</span>
+                    <h2 class="font-display text-4xl md:text-6xl tracking-wide mb-4">PRINT STORE</h2>
+                    <p class="text-white/45 max-w-2xl mx-auto">Premium quality prints of my best toy photography. Art prints, canvases, phone cases & more.</p>
+                </div>
+                <div class="reveal-section flex flex-wrap justify-center gap-3 mb-12" id="storeFilters">
+                    <button class="filter-pill active" data-filter="all">All Products</button>
+                    <button class="filter-pill" data-filter="prints">Art Prints</button>
+                    <button class="filter-pill" data-filter="canvas">Canvas Prints</button>
+                    <button class="filter-pill" data-filter="merch">Merchandise</button>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal-section stagger-children" id="productsGrid"></div>
+                <div class="reveal-section mt-16 text-center">
+                    <a href="#" class="btn-primary text-lg px-10 py-4"><span>Visit Full Store</span><i data-lucide="external-link" class="w-5 h-5 ml-2"></i></a>
+                    <p class="text-sm text-white/25 mt-4 flex items-center justify-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-green-500"></i> Powered by Printify - Quality guaranteed</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- VIDEOS SECTION -->
+        <section id="videos" class="py-20 md:py-32 bg-tfs-black relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="reveal-section flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+                    <div><span class="tag mb-4 inline-block">Video Content</span><h2 class="font-display text-4xl md:text-6xl tracking-wide">VIDEO TUTORIALS</h2></div>
+                    <a href="#" class="btn-secondary self-start md:self-auto" target="_blank" rel="noopener noreferrer">YouTube Channel<i data-lucide="external-link" class="w-4 h-4 ml-2"></i></a>
+                </div>
+                <div class="reveal-section flex flex-wrap gap-3 mb-10" id="videoFilters">
+                    <button class="filter-pill active" data-filter="all">All Videos</button>
+                    <button class="filter-pill" data-filter="tutorials">Tutorials</button>
+                    <button class="filter-pill" data-filter="reviews">Reviews</button>
+                    <button class="filter-pill" data-filter="bts">Behind-the-Scenes</button>
+                    <button class="filter-pill" data-filter="hauls">Hauls</button>
+                </div>
+                <div class="reveal-section mb-12">
+                    <div class="relative aspect-video rounded-2xl overflow-hidden bg-tfs-dark group cursor-pointer" id="featuredVideo">
+                        <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&h=675&fit=crop" alt="Featured video thumbnail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="play-button w-24 h-24 bg-tfs-red rounded-full flex items-center justify-center shadow-2xl shadow-tfs-red/30"><i data-lucide="play" class="w-10 h-10 text-white ml-1.5"></i></div>
+                        </div>
+                        <div class="absolute bottom-8 left-8 right-8">
+                            <span class="tag mb-3 inline-block">Featured Tutorial</span>
+                            <h3 class="font-display text-2xl md:text-4xl">Complete Guide to Dramatic Toy Lighting Setup</h3>
+                            <p class="text-white/50 mt-3 flex items-center gap-4"><span class="flex items-center gap-1"><i data-lucide="eye" class="w-4 h-4"></i> 45K views</span><span class="flex items-center gap-1"><i data-lucide="clock" class="w-4 h-4"></i> 18:24</span><span>2 weeks ago</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal-section stagger-children" id="videosGrid"></div>
+            </div>
+        </section>
+        
+        <!-- BLOG SECTION -->
+        <section id="blog" class="py-20 md:py-32 bg-tfs-dark relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="reveal-section text-center mb-12">
+                    <span class="tag mb-4 inline-block">Journal</span>
+                    <h2 class="font-display text-4xl md:text-6xl tracking-wide mb-4">BLOG & NEWS</h2>
+                    <p class="text-white/45 max-w-2xl mx-auto">In-depth articles about toy photography techniques, collection showcases, industry news, and more.</p>
+                </div>
+                <div class="reveal-section flex flex-wrap justify-center gap-3 mb-12" id="blogFilters">
+                    <button class="filter-pill active" data-filter="all">All Posts</button>
+                    <button class="filter-pill" data-filter="reviews">Reviews</button>
+                    <button class="filter-pill" data-filter="tips">Photography Tips</button>
+                    <button class="filter-pill" data-filter="showcases">Showcases</button>
+                    <button class="filter-pill" data-filter="news">News</button>
+                </div>
+                <article class="reveal-section mb-12 blog-card group cursor-pointer" id="featuredPost">
+                    <div class="grid md:grid-cols-2 gap-0 rounded-2xl overflow-hidden bg-tfs-black border border-white/5">
+                        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1608889825205-eeb944613692?w=800&h=600&fit=crop" alt="Featured blog post image" class="blog-image w-full h-full object-cover aspect-[4/3] md:aspect-auto"></div>
+                        <div class="p-8 md:p-10 flex flex-col justify-center">
+                            <div class="flex items-center gap-3 mb-4"><span class="tag">Featured</span><span class="text-sm text-white/35">December 2024</span></div>
+                            <h3 class="font-display text-3xl md:text-4xl mb-4 group-hover:text-tfs-red transition-colors">Ultimate Guide to Creating Movie-Quality Toy Photographs</h3>
+                            <p class="text-white/50 mb-6 line-clamp-3">Learn my complete workflow from setup to final edit. This comprehensive guide covers lighting, composition, posing, post-processing, and everything you need to create stunning toy photography...</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png" alt="Author" class="w-11 h-11 rounded-full object-contain bg-white/5 p-1">
+                                    <div><p class="font-semibold text-sm">TOYZ FOR SHOTZ</p><p class="text-xs text-white/35">12 min read</p></div>
+                                </div>
+                                <span class="text-tfs-red font-semibold group-hover:translate-x-2 transition-transform inline-flex items-center">Read More<i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-section stagger-children" id="blogGrid"></div>
+                <div class="reveal-section flex items-center justify-center gap-2 mt-14" id="blogPagination">
+                    <button class="w-11 h-11 rounded-xl bg-tfs-dark border border-white/10 flex items-center justify-center hover:border-tfs-red transition-colors disabled:opacity-30" disabled><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                    <button class="w-11 h-11 rounded-xl bg-tfs-red text-white font-bold">1</button>
+                    <button class="w-11 h-11 rounded-xl bg-tfs-dark border border-white/10 hover:border-tfs-red transition-colors font-medium">2</button>
+                    <button class="w-11 h-11 rounded-xl bg-tfs-dark border border-white/10 hover:border-tfs-red transition-colors font-medium">3</button>
+                    <span class="px-2 text-white/30">...</span>
+                    <button class="w-11 h-11 rounded-xl bg-tfs-dark border border-white/10 hover:border-tfs-red transition-colors font-medium">12</button>
+                    <button class="w-11 h-11 rounded-xl bg-tfs-dark border border-white/10 flex items-center justify-center hover:border-tfs-red transition-colors"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-20 md:py-32 bg-tfs-black relative overflow-hidden">
+            <div class="absolute top-1/2 left-0 w-[450px] h-[450px] bg-tfs-red/4 rounded-full blur-[120px] -translate-y-1/2"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <div class="reveal-section relative order-2 lg:order-1">
+                        <div class="relative rounded-2xl overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=750&fit=crop" alt="TOYZ FOR SHOTZ photographer at work with action figures" class="w-full aspect-[4/5] object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-tfs-black via-transparent to-transparent"></div>
+                            <div class="absolute bottom-6 left-6 right-6 bg-tfs-dark/95 backdrop-blur-md rounded-xl p-6 border border-white/10">
+                                <div class="grid grid-cols-3 gap-4 text-center">
+                                    <div><div class="font-display text-3xl text-tfs-red">5+</div><div class="text-xs text-white/35">Years Shooting</div></div>
+                                    <div><div class="font-display text-3xl">25K</div><div class="text-xs text-white/35">Followers</div></div>
+                                    <div><div class="font-display text-3xl text-tfs-red">500+</div><div class="text-xs text-white/35">Photos Shared</div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute -top-4 -right-4 w-28 h-28 border-2 border-tfs-red/25 rounded-2xl -z-10"></div>
+                        <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-tfs-red rounded-2xl flex items-center justify-center shadow-2xl shadow-tfs-red/30 rotate-6">
+                            <img src="https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png" alt="TFS Logo" class="w-16 h-16 object-contain">
+                        </div>
+                    </div>
+                    <div class="reveal-section order-1 lg:order-2">
+                        <span class="tag mb-4 inline-block">Our Story</span>
+                        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-wide mb-6">THE ARTIST<br>BEHIND THE<br><span class="text-tfs-red">LENS</span></h2>
+                        <div class="space-y-5 text-white/55 leading-relaxed mb-8">
+                            <p>Hey there! I'm the creative force behind <strong class="text-white">TOYZ FOR SHOTZ</strong>, a Chicago-based toy photographer on a mission to elevate action figure photography to fine art status.</p>
+                            <p>What started as a hobby sharing photos of my growing collection has evolved into a full-blown passion project. I specialize in creating dramatic, cinematic shots that make your favorite characters look like they just stepped off the big screen.</p>
+                            <p>From Mortal Kombat fatalities to Star Wars epic battles, every shot tells a story. I use custom-printed backdrops, professional lighting setups, and careful posing to bring these plastic heroes to life.</p>
+                        </div>
+                        <div class="bg-tfs-dark rounded-xl p-6 border border-white/5 mb-8">
+                            <div class="flex items-start gap-4">
+                                <div class="w-14 h-14 rounded-xl bg-tfs-red/10 flex items-center justify-center flex-shrink-0"><i data-lucide="target" class="w-7 h-7 text-tfs-red"></i></div>
+                                <div><h4 class="font-bold text-lg mb-2">Our Mission</h4><p class="text-sm text-white/45 leading-relaxed">To inspire collectors worldwide to see their toys differently, and to build a community of passionate photographers who share this unique art form.</p></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 flex-wrap">
+                            <a href="https://instagram.com/toyzforshotz" target="_blank" rel="noopener noreferrer" class="group w-13 h-13 rounded-full bg-tfs-dark border border-white/10 flex items-center justify-center hover:border-tfs-red hover:bg-tfs-red/10 transition-all" aria-label="Follow on Instagram"><i data-lucide="instagram" class="w-5 h-5 group-hover:scale-110 transition-transform"></i></a>
+                            <a href="mailto:toyzforshotz@gmail.com" class="group w-13 h-13 rounded-full bg-tfs-dark border border-white/10 flex items-center justify-center hover:border-tfs-red hover:bg-tfs-red/10 transition-all" aria-label="Send email"><i data-lucide="mail" class="w-5 h-5 group-hover:scale-110 transition-transform"></i></a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="group w-13 h-13 rounded-full bg-tfs-dark border border-white/10 flex items-center justify-center hover:border-tfs-red hover:bg-tfs-red/10 transition-all" aria-label="YouTube channel"><i data-lucide="youtube" class="w-5 h-5 group-hover:scale-110 transition-transform"></i></a>
+                            <span class="ml-3 text-sm text-white/35 flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-tfs-red"></i> Chicago, IL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- NEWSLETTER SECTION -->
+        <section id="newsletter" class="py-20 md:py-32 bg-tfs-dark relative overflow-hidden">
+            <div class="absolute inset-0"><div class="absolute top-0 left-1/4 w-72 h-72 bg-tfs-red/8 rounded-full blur-[100px]"></div><div class="absolute bottom-0 right-1/4 w-96 h-96 bg-tfs-red/5 rounded-full blur-[120px]"></div></div>
+            <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="reveal-section">
+                    <div class="w-24 h-24 mx-auto mb-8 rounded-2xl bg-tfs-red/10 border border-tfs-red/20 flex items-center justify-center"><img src="https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png" alt="TFS" class="w-16 h-16 object-contain"></div>
+                    <h2 class="font-display text-4xl md:text-6xl tracking-wide mb-4">JOIN THE <span class="text-tfs-red">COMMUNITY</span></h2>
+                    <p class="text-white/45 max-w-xl mx-auto mb-10 text-lg">Get exclusive behind-the-scenes content, early access to new prints, photography tips, and special subscriber-only deals delivered to your inbox.</p>
+                    <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
+                        <input type="email" required placeholder="Enter your email address" class="flex-1 bg-tfs-black border border-white/10 rounded-xl px-6 py-4.5 text-base focus:border-tfs-red focus:outline-none transition-all focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)]" aria-label="Email address">
+                        <button type="submit" class="btn-primary whitespace-nowrap px-8 py-4.5"><span>Subscribe Now</span><i data-lucide="send" class="w-4 h-4"></i></button>
+                    </form>
+                    <p class="text-xs text-white/25 mt-5">No spam, ever. Unsubscribe anytime. By subscribing, you agree to our Privacy Policy.</p>
+                    <div class="flex items-center justify-center gap-6 mt-12 pt-10 border-t border-white/5">
+                        <div class="flex items-center gap-2.5">
+                            <div class="flex -space-x-2.5">
+                                <img src="https://i.pravatar.cc/44?img=1" alt="" class="w-10 h-10 rounded-full border-2 border-tfs-dark">
+                                <img src="https://i.pravatar.cc/44?img=2" alt="" class="w-10 h-10 rounded-full border-2 border-tfs-dark">
+                                <img src="https://i.pravatar.cc/44?img=3" alt="" class="w-10 h-10 rounded-full border-2 border-tfs-dark">
+                                <img src="https://i.pravatar.cc/44?img=4" alt="" class="w-10 h-10 rounded-full border-2 border-tfs-dark">
+                                <div class="w-10 h-10 rounded-full border-2 border-tfs-dark bg-tfs-red flex items-center justify-center text-xs font-bold">+</div>
+                            </div>
+                            <span class="text-sm text-white/40">Join <strong class="text-white">2,500+</strong> subscribers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-20 md:py-32 bg-tfs-black relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
+                    <div class="reveal-section">
+                        <span class="tag mb-4 inline-block">Get In Touch</span>
+                        <h2 class="font-display text-4xl md:text-5xl tracking-wide mb-6">LET'S <span class="text-tfs-red">CONNECT</span></h2>
+                        <p class="text-white/45 mb-10 leading-relaxed text-lg">Have a question about my work? Want to collaborate on a project? Interested in commissioning a custom shoot? I'd love to hear from you!</p>
+                        <div class="space-y-6">
+                            <a href="mailto:toyzforshotz@gmail.com" class="flex items-center gap-5 group">
+                                <div class="w-16 h-16 rounded-xl bg-tfs-dark border border-white/10 flex items-center justify-center group-hover:border-tfs-red group-hover:bg-tfs-red/10 transition-all"><i data-lucide="mail" class="w-7 h-7 text-tfs-red"></i></div>
+                                <div><p class="text-sm text-white/35">Email</p><p class="font-semibold text-lg group-hover:text-tfs-red transition-colors">toyzforshotz@gmail.com</p></div>
+                            </a>
+                            <a href="https://instagram.com/toyzforshotz" target="_blank" rel="noopener noreferrer" class="flex items-center gap-5 group">
+                                <div class="w-16 h-16 rounded-xl bg-tfs-dark border border-white/10 flex items-center justify-center group-hover:border-tfs-red group-hover:bg-tfs-red/10 transition-all"><i data-lucide="instagram" class="w-7 h-7 text-tfs-red"></i></div>
+                                <div><p class="text-sm text-white/35">Instagram</p><p class="font-semibold text-lg group-hover:text-tfs-red transition-colors">@toyzforshotz</p></div>
+                            </a>
+                            <div class="flex items-center gap-5">
+                                <div class="w-16 h-16 rounded-xl bg-tfs-dark border border-white/10 flex items-center justify-center"><i data-lucide="map-pin" class="w-7 h-7 text-tfs-red"></i></div>
+                                <div><p class="text-sm text-white/35">Location</p><p class="font-semibold text-lg">Chicago, Illinois</p></div>
+                            </div>
+                        </div>
+                        <div class="mt-12 p-7 bg-tfs-dark rounded-2xl border border-white/5">
+                            <div class="flex items-center gap-4 mb-3">
+                                <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center"><i data-lucide="clock" class="w-6 h-6 text-green-400"></i></div>
+                                <span class="font-semibold text-lg">Average Response Time</span>
+                            </div>
+                            <p class="font-display text-4xl text-tfs-red">Under 24 hours</p>
+                        </div>
+                    </div>
+                    <div class="reveal-section">
+                        <form class="bg-tfs-dark rounded-2xl p-8 md:p-10 border border-white/5" id="contactForm" onsubmit="handleContactSubmit(event)">
+                            <div class="space-y-6">
+                                <div class="grid sm:grid-cols-2 gap-6">
+                                    <div><label for="contactName" class="block text-sm font-semibold mb-2.5">Your Name *</label><input type="text" id="contactName" required class="w-full bg-tfs-black border border-white/10 rounded-xl px-5 py-3.5 focus:border-tfs-red focus:outline-none transition-all" placeholder="John Doe"></div>
+                                    <div><label for="contactEmail" class="block text-sm font-semibold mb-2.5">Email Address *</label><input type="email" id="contactEmail" required class="w-full bg-tfs-black border border-white/10 rounded-xl px-5 py-3.5 focus:border-tfs-red focus:outline-none transition-all" placeholder="john@example.com"></div>
+                                </div>
+                                <div><label for="contactSubject" class="block text-sm font-semibold mb-2.5">Subject</label><select id="contactSubject" class="w-full bg-tfs-black border border-white/10 rounded-xl px-5 py-3.5 focus:border-tfs-red focus:outline-none transition-all cursor-pointer appearance-none" style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27white%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em;"><option value="">Select a topic...</option><option value="collaboration">Collaboration Inquiry</option><option value="commission">Custom Shoot Commission</option><option value="print">Print/Product Question</option><option value="tutorial">Tutorial Request</option><option value="other">Other</option></select></div>
+                                <div><label for="contactMessage" class="block text-sm font-semibold mb-2.5">Your Message *</label><textarea id="contactMessage" required rows="5" class="w-full bg-tfs-black border border-white/10 rounded-xl px-5 py-3.5 focus:border-tfs-red focus:outline-none transition-all resize-none" placeholder="Tell me what's on your mind..."></textarea></div>
+                                <button type="submit" class="btn-primary w-full py-4.5 text-base"><span>Send Message</span><i data-lucide="send" class="w-5 h-5"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- INSTAGRAM FEED -->
+        <section class="py-16 bg-tfs-dark border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-4"><img src="https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png" alt="TFS" class="w-10 h-10"><span class="font-display text-2xl tracking-wide">@toyzforshotz</span></div>
+                    <a href="https://instagram.com/toyzforshotz" target="_blank" rel="noopener noreferrer" class="text-sm text-white/40 hover:text-tfs-red transition-colors flex items-center gap-2">Follow on Instagram<i data-lucide="external-link" class="w-4 h-4"></i></a>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3" id="instagramFeed"></div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- FOOTER -->
+    <footer class="bg-tfs-black border-t border-white/5 pt-16 pb-8 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-10 mb-14">
+                <div class="col-span-2 md:col-span-4 lg:col-span-1">
+                    <a href="#home" class="flex items-center gap-3 mb-5"><img src="https://i.ibb.co/6P7zq8Mx/toyz-for-shotz-logo.png" alt="TOYZ FOR SHOTZ" class="w-12 h-12"><span class="font-display text-xl tracking-wider">TOYZ FOR SHOTZ</span></a>
+                    <p class="text-sm text-white/35 mb-6 leading-relaxed">Cinematic toy photography showcasing the world's greatest action figures as fine art.</p>
+                    <div class="flex items-center gap-3">
+                        <a href="https://instagram.com/toyzforshotz" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-full bg-tfs-dark border border-white/10 flex items-center justify-center hover:border-tfs-red hover:bg-tfs-red/10 transition-all" aria-label="Instagram"><i data-lucide="instagram" class="w-[18px] h-[18px]"></i></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-full bg-tfs-dark border border-white/10 flex items-center justify-center hover:border-tfs-red hover:bg-tfs-red/10 transition-all" aria-label="YouTube"><i data-lucide="youtube" class="w-[18px] h-[18px]"></i></a>
+                        <a href="mailto:toyzforshotz@gmail.com" class="w-11 h-11 rounded-full bg-tfs-dark border border-white/10 flex items-center justify-center hover:border-tfs-red hover:bg-tfs-red/10 transition-all" aria-label="Email"><i data-lucide="mail" class="w-[18px] h-[18px]"></i></a>
+                    </div>
+                </div>
+                <div><h4 class="font-bold text-sm uppercase tracking-wider mb-5 text-white/70">Explore</h4><ul class="space-y-3.5"><li><a href="#gallery" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Gallery</a></li><li><a href="#store" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Store</a></li><li><a href="#videos" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Videos</a></li><li><a href="#blog" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Blog</a></li></ul></div>
+                <div><h4 class="font-bold text-sm uppercase tracking-wider mb-5 text-white/70">Collections</h4><ul class="space-y-3.5"><li><a href="#" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Mortal Kombat</a></li><li><a href="#" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Star Wars</a></li><li><a href="#" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Marvel</a></li><li><a href="#" class="text-sm text-white/40 hover:text-tfs-red transition-colors">DC Comics</a></li></ul></div>
+                <div><h4 class="font-bold text-sm uppercase tracking-wider mb-5 text-white/70">Company</h4><ul class="space-y-3.5"><li><a href="#about" class="text-sm text-white/40 hover:text-tfs-red transition-colors">About</a></li><li><a href="#contact" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Contact</a></li><li><a href="#" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Privacy Policy</a></li><li><a href="#" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Terms of Service</a></li></ul></div>
+                <div><h4 class="font-bold text-sm uppercase tracking-wider mb-5 text-white/70">Legal</h4><ul class="space-y-3.5"><li><a href="#" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Privacy Policy</a></li><li><a href="#" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Disclosure</a></li><li><a href="#" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Terms</a></li><li><a href="#" class="text-sm text-white/40 hover:text-tfs-red transition-colors">Cookie Policy</a></li></ul></div>
+            </div>
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-white/25">2024 TOYZ FOR SHOTZ. All rights reserved.</p>
+                <div class="flex items-center gap-6 text-sm text-white/25"><span>Made with passion in Chicago</span><span class="flex items-center gap-1.5 text-tfs-red"><i data-lucide="heart" class="w-4 h-4 fill-current"></i> For toy lovers everywhere</span></div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <button id="lightboxClose" class="absolute top-6 right-6 p-2.5 text-white/60 hover:text-white bg-white/10 rounded-full transition-colors z-10" aria-label="Close lightbox"><i data-lucide="x" class="w-7 h-7"></i></button>
+        <button id="lightboxPrev" class="absolute left-6 top-1/2 -translate-y-1/2 p-3.5 bg-white/10 rounded-full hover:bg-white/20 transition-colors" aria-label="Previous image"><i data-lucide="chevron-left" class="w-7 h-7"></i></button>
+        <button id="lightboxNext" class="absolute right-6 top-1/2 -translate-y-1/2 p-3.5 bg-white/10 rounded-full hover:bg-white/20 transition-colors" aria-label="Next image"><i data-lucide="chevron-right" class="w-7 h-7"></i></button>
+        <img src="" alt="" id="lightboxImg" class="max-h-[85vh] rounded-xl">
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-center max-w-lg px-4"><p class="text-white/90 font-semibold text-lg" id="lightboxTitle"></p><p class="text-white/50 text-sm mt-1" id="lightboxMeta"></p></div>
+    </div>
+    
+    <!-- BACK TO TOP -->
+    <button class="back-to-top no-print" id="backToTop" aria-label="Back to top"><i data-lucide="arrow-up" class="w-6 h-6"></i></button>
+    
+    <!-- COOKIE BANNER -->
+    <div class="cookie-banner no-print" id="cookieBanner">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
+            <div class="flex items-center gap-4">
+                <div class="w-11 h-11 rounded-xl bg-tfs-red/10 flex items-center justify-center flex-shrink-0"><i data-lucide="cookie" class="w-6 h-6 text-tfs-red"></i></div>
+                <p class="text-sm text-white/55">We use cookies to enhance your browsing experience and analyze our traffic. By clicking "Accept", you consent to our use of cookies.</p>
+            </div>
+            <div class="flex items-center gap-3 flex-shrink-0">
+                <button id="cookieDecline" class="px-5 py-2.5 text-sm text-white/50 hover:text-white transition-colors font-medium">Decline</button>
+                <button id="cookieAccept" class="btn-primary text-sm py-2.5"><span>Accept All</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // DATA STORE
+        const galleryData = [
+            { id: 1, title: "Scorpion's Fury", category: "mortalkombat", date: "2024-12-15", likes: 2340, image: "https://images.unsplash.com/photo-1626224583764-84786c71a2ed?w=600&h=750&fit=crop", description: "Classic Scorpion pose with fire effects" },
+            { id: 2, title: "Vader's Redemption", category: "starwars", date: "2024-12-14", likes: 1890, image: "https://images.unsplash.com/photo-1601814933824-fd0b574dd592?w=600&h=400&fit=crop", description: "Darth Vader in dramatic lighting" },
+            { id: 3, title: "Iron Man Mark 85", category: "marvel", date: "2024-12-13", likes: 3100, image: "https://images.unsplash.com/photo-1635864664057-9af08c977219?w=600&h=900&fit=crop", description: "Endgame final suit showcase" },
+            { id: 4, title: "Studio Setup BTS", category: "behindthescenes", date: "2024-12-12", likes: 1560, image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=600&h=450&fit=crop", description: "My current lighting rig setup" },
+            { id: 5, title: "Sub-Zero Freeze Frame", category: "mortalkombat", date: "2024-12-11", likes: 2100, image: "https://images.unsplash.com/photo-1608889476561-6242cfdbf622?w=600&h=600&fit=crop", description: "Ice effects practical photography" },
+            { id: 6, title: "Mandalorian Collection", category: "collections", date: "2024-12-10", likes: 2800, image: "https://images.unsplash.com/photo-1608889825205-eeb944613692?w=600&h=350&fit=crop", description: "Full Mando season 2 lineup" },
+            { id: 7, title: "Spider-Man Noir", category: "marvel", date: "2024-12-09", likes: 1950, image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=600&h=800&fit=crop", description: "Black and white noir style" },
+            { id: 8, title: "Luke Skywalker Jedi", category: "starwars", date: "2024-12-08", likes: 1670, image: "https://images.unsplash.com/photo-1608889335941-32ac5f2041b9?w=600&h=500&fit=crop", description: "Return of the Jedi era Luke" },
+            { id: 9, title: "Raiden Thunder God", category: "mortalkombat", date: "2024-12-07", likes: 2200, image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=600&h=650&fit=crop", description: "Lightning effects tutorial result" },
+            { id: 10, title: "Grogu with Cookie", category: "starwars", date: "2024-12-06", likes: 4200, image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&h=550&fit=crop", description: "Everyone's favorite scene" },
+            { id: 11, title: "Captain America Shield", category: "marvel", date: "2024-12-05", likes: 1780, image: "https://images.unsplash.com/photo-1608889825432-9a0fa6ef2d92?w=600&h=700&fit=crop", description: "Winter Soldier dynamic pose" },
+            { id: 12, title: "Lighting Diagram", category: "behindthescenes", date: "2024-12-04", likes: 3200, image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&h=400&fit=crop", description: "Three-point lighting explained" },
+        ];
+        
+        const productsData = [
+            { id: 1, name: "Scorpion's Fury - Limited Edition Print", category: "prints", price: 45, originalPrice: 60, image: "https://images.unsplash.com/photo-1626224583764-84786c71a2ed?w=400&h=500&fit=crop", badge: "Best Seller" },
+            { id: 2, name: "Vader's Redemption Canvas", category: "canvas", price: 120, image: "https://images.unsplash.com/photo-1601814933824-fd0b574dd592?w=400&h=400&fit=crop", badge: "" },
+            { id: 3, name: "Iron Man Mark 85 Poster", category: "prints", price: 35, originalPrice: 45, image: "https://images.unsplash.com/photo-1635864664057-9af08c977219?w=400&h=500&fit=crop", badge: "New" },
+            { id: 4, name: "Mandalorian Phone Case", category: "merch", price: 25, image: "https://images.unsplash.com/photo-1608889825205-eeb944613692?w=400&h=400&fit=crop", badge: "" },
+            { id: 5, name: "Sub-Zero Freeze Frame Print", category: "prints", price: 45, image: "https://images.unsplash.com/photo-1608889476561-6242cfdbf622?w=400&h=400&fit=crop", badge: "" },
+            { id: 6, name: "Spider-Man Noir Canvas", category: "canvas", price: 130, image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=400&h=500&fit=crop", badge: "Premium" },
+            { id: 7, name: "Grogu T-Shirt", category: "merch", price: 28, image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&h=400&fit=crop", badge: "Popular" },
+            { id: 8, name: "Raiden Thunder God Print", category: "prints", price: 45, image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=400&h=450&fit=crop", badge: "" },
+        ];
+        
+        const videosData = [
+            { id: 1, title: "Complete Lighting Setup Guide", category: "tutorials", views: "45K", duration: "18:24", thumbnail: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400&h=225&fit=crop", youtubeId: "dQw4w9WgXcQ" },
+            { id: 2, title: "McFarlane Spawn Review", category: "reviews", views: "12K", duration: "12:45", thumbnail: "https://images.unsplash.com/photo-1601814933824-fd0b574dd592?w=400&h=225&fit=crop", youtubeId: "dQw4w9WgXcQ" },
+            { id: 3, title: "How I Create Smoke Effects", category: "bts", views: "28K", duration: "8:30", thumbnail: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=400&h=225&fit=crop", youtubeId: "dQw4w9WgXcQ" },
+            { id: 4, title: "Haul: Hot Toys December Releases", category: "hauls", views: "8.5K", duration: "22:10", thumbnail: "https://images.unsplash.com/photo-1608889825205-eeb944613692?w=400&h=225&fit=crop", youtubeId: "dQw4w9WgXcQ" },
+            { id: 5, title: "Background Printing Tips", category: "tutorials", views: "19K", duration: "14:55", thumbnail: "https://images.unsplash.com/photo-1608889476561-6242cfdbf622?w=400&h=225&fit=crop", youtubeId: "dQw4w9WgXcQ" },
+            { id: 6, title: "Mezco One:12 Collective Review", category: "reviews", views: "6.2K", duration: "10:20", thumbnail: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=400&h=225&fit=crop", youtubeId: "dQw4w9WgXcQ" },
+        ];
+        
+        const blogData = [
+            { id: 1, title: "10 Essential Tips for Better Toy Photography", category: "tips", date: "Dec 10, 2024", readTime: "8 min", image: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=400&h=250&fit=crop", excerpt: "Master the fundamentals of toy photography with these proven techniques..." },
+            { id: 2, title: "My Complete Mortal Kombat Collection Showcase", category: "showcases", date: "Dec 8, 2024", readTime: "12 min", image: "https://images.unsplash.com/photo-1626224583764-84786c71a2ed?w=400&h=250&fit=crop", excerpt: "Every figure, every variant, every story behind my MK obsession..." },
+            { id: 3, title: "Hot Toys vs Sideshow: Which Is Worth It?", category: "reviews", date: "Dec 5, 2024", readTime: "10 min", image: "https://images.unsplash.com/photo-1601814933824-fd0b574dd592?w=400&h=250&fit=crop", excerpt: "An honest comparison of the two biggest names in premium figures..." },
+            { id: 4, title: "Building Your First DIY Light Box", category: "tips", date: "Dec 2, 2024", readTime: "6 min", image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=400&h=250&fit=crop", excerpt: "Create professional results without breaking the bank..." },
+            { id: 5, title: "Hasbro Pulse November Announcements Roundup", category: "news", date: "Nov 28, 2024", readTime: "5 min", image: "https://images.unsplash.com/photo-1608889825205-eeb944613692?w=400&h=250&fit=crop", excerpt: "Everything announced at the latest Hasbro fan event..." },
+            { id: 6, title: "Creating Realistic Snow Effects for Winter Shots", category: "tips", date: "Nov 25, 2024", readTime: "7 min", image: "https://images.unsplash.com/photo-1608889476561-6242cfdbf622?w=400&h=250&fit=crop", excerpt: "Transform any scene into a winter wonderland with simple materials..." },
+        ];
+        
+        const instagramPosts = [
+            { id: 1, image: "https://images.unsplash.com/photo-1626224583764-84786c71a2ed?w=200&h=200&fit=crop", likes: "2.3K" },
+            { id: 2, image: "https://images.unsplash.com/photo-1601814933824-fd0b574dd592?w=200&h=200&fit=crop", likes: "1.8K" },
+            { id: 3, image: "https://images.unsplash.com/photo-1635864664057-9af08c977219?w=200&h=200&fit=crop", likes: "3.1K" },
+            { id: 4, image: "https://images.unsplash.com/photo-1608889825205-eeb944613692?w=200&h=200&fit=crop", likes: "2.8K" },
+            { id: 5, image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=200&h=200&fit=crop", likes: "1.9K" },
+            { id: 6, image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=200&h=200&fit=crop", likes: "2.2K" },
+        ];
+        
+        // STATE
+        let cart = [];
+        let currentLightboxIndex = 0;
+        let filteredGallery = [...galleryData];
+        let filteredProducts = [...productsData];
+        let filteredVideos = [...videosData];
+        let filteredBlog = [...blogData];
+        let isAdminMode = false;
+        let isPanelOpen = false;
+        
+        // INITIALIZATION
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            
+            const readingProgress = document.getElementById('readingProgress');
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+            const searchToggle = document.getElementById('searchToggle');
+            const searchModal = document.getElementById('searchModal');
+            const searchClose = document.getElementById('searchClose');
+            const searchInput = document.getElementById('searchInput');
+            const cartToggle = document.getElementById('cartToggle');
+            const cartSidebar = document.getElementById('cartSidebar');
+            const cartClose = document.getElementById('cartClose');
+            const backToTop = document.getElementById('backToTop');
+            const cookieBanner = document.getElementById('cookieBanner');
+            const cookieAccept = document.getElementById('cookieAccept');
+            const cookieDecline = document.getElementById('cookieDecline');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxTitle = document.getElementById('lightboxTitle');
+            const lightboxMeta = document.getElementById('lightboxMeta');
+            const lightboxCloseBtn = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+            const adminBar = document.getElementById('adminBar');
+            const adminPanel = document.getElementById('adminPanel');
+            const adminToggleBtn = document.getElementById('adminToggleBtn');
+            
+            setTimeout(() => { if (adminToggleBtn) adminToggleBtn.style.display = 'flex'; }, 3000);
+            
+            // RENDER FUNCTIONS
+            function renderFeaturedGrid() {
+                const container = document.getElementById('featuredGrid');
+                if (!container) return;
+                const featured = galleryData.slice(0, 3);
+                container.innerHTML = featured.map(item => `
+                    <article class="group cursor-pointer card-hover rounded-2xl overflow-hidden bg-tfs-dark border border-white/5" onclick="openLightbox(${item.id})" tabindex="0" role="button" aria-label="View ${item.title}">
+                        <div class="overflow-hidden"><img src="${item.image}" alt="${item.title}" class="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy"></div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-2 mb-2"><span class="tag">${item.category}</span><span class="text-xs text-white/30">${formatDate(item.date)}</span></div>
+                            <h3 class="font-display text-xl tracking-wide group-hover:text-tfs-red transition-colors">${item.title}</h3>
+                            <div class="flex items-center gap-3 mt-3 text-sm text-white/40"><span class="flex items-center gap-1"><i data-lucide="heart" class="w-4 h-4"></i>${item.likes.toLocaleString()}</span></div>
+                        </div>
+                    </article>
+                `).join('');
+                lucide.createIcons();
+            }
+            
+            function renderGallery(filter = 'all') {
+                const container = document.getElementById('galleryGrid');
+                if (!container) return;
+                filteredGallery = filter === 'all' ? [...galleryData] : galleryData.filter(item => item.category === filter);
+                document.getElementById('photoCount').textContent = filteredGallery.length;
+                container.innerHTML = filteredGallery.map((item, index) => `
+                    <article class="masonry-item group cursor-pointer card-hover rounded-xl overflow-hidden bg-tfs-dark border border-white/5" onclick="openLightbox(${index})" tabindex="0" role="button" aria-label="View ${item.title}" data-category="${item.category}">
+                        <div class="overflow-hidden"><img src="${item.image}" alt="${item.title}" class="w-full transition-transform duration-500 group-hover:scale-105" loading="lazy"></div>
+                        <div class="p-4"><h3 class="font-medium text-sm group-hover:text-tfs-red transition-colors">${item.title}</h3><div class="flex items-center justify-between mt-2 text-xs text-white/40"><span>${formatDate(item.date)}</span><span class="flex items-center gap-1"><i data-lucide="heart" class="w-3 h-3"></i>${item.likes.toLocaleString()}</span></div></div>
+                    </article>
+                `).join('');
+                lucide.createIcons();
+            }
+            
+            function renderProducts(filter = 'all') {
+                const container = document.getElementById('productsGrid');
+                if (!container) return;
+                filteredProducts = filter === 'all' ? [...productsData] : productsData.filter(item => item.category === filter);
+                container.innerHTML = filteredProducts.map(product => `
+                    <article class="product-card rounded-2xl overflow-hidden bg-tfs-dark border border-white/5 card-hover">
+                        <div class="relative overflow-hidden">
+                            <img src="${product.image}" alt="${product.name}" class="w-full aspect-square object-cover" loading="lazy">
+                            ${product.badge ? `<span class="absolute top-3 left-3 tag">${product.badge}</span>` : ''}
+                            <div class="product-overlay"></div>
+                            <div class="quick-actions"><button onclick="addToCart(${product.id})" class="btn-primary w-full text-sm py-3"><span>Add to Cart</span></button></div>
+                        </div>
+                        <div class="p-4"><h3 class="font-medium text-sm mb-2 line-clamp-2">${product.name}</h3><div class="flex items-center gap-2"><span class="font-bold text-tfs-red text-lg">$${product.price}</span>${product.originalPrice ? `<span class="text-sm text-white/30 line-through">$${product.originalPrice}</span>` : ''}</div></div>
+                    </article>
+                `).join('');
+            }
+            
+            function renderVideos(filter = 'all') {
+                const container = document.getElementById('videosGrid');
+                if (!container) return;
+                filteredVideos = filter === 'all' ? [...videosData] : videosData.filter(item => item.category === filter);
+                container.innerHTML = filteredVideos.map(video => `
+                    <article class="group cursor-pointer rounded-xl overflow-hidden bg-tfs-dark border border-white/5 card-hover">
+                        <div class="video-thumb relative"><img src="${video.thumbnail}" alt="${video.title}" class="w-full aspect-video object-cover" loading="lazy"><div class="play-button w-14 h-14 bg-tfs-red rounded-full flex items-center justify-center shadow-lg shadow-tfs-red/30"><i data-lucide="play" class="w-6 h-6 text-white ml-0.5"></i></div><span class="absolute bottom-2 right-2 bg-black/80 text-xs px-2 py-1 rounded-md z-10 font-mono">${video.duration}</span></div>
+                        <div class="p-4"><span class="tag text-xs mb-2 inline-block">${video.category}</span><h3 class="font-medium text-sm group-hover:text-tfs-red transition-colors line-clamp-2">${video.title}</h3><p class="text-xs text-white/40 mt-2 flex items-center gap-1"><i data-lucide="eye" class="w-3 h-3"></i>${video.views} views</p></div>
+                    </article>
+                `).join('');
+                lucide.createIcons();
+            }
+            
+            function renderBlog(filter = 'all') {
+                const container = document.getElementById('blogGrid');
+                if (!container) return;
+                filteredBlog = filter === 'all' ? [...blogData] : blogData.filter(item => item.category === filter);
+                container.innerHTML = filteredBlog.map(post => `
+                    <article class="blog-card group cursor-pointer rounded-xl overflow-hidden bg-tfs-dark border border-white/5 card-hover">
+                        <div class="overflow-hidden"><img src="${post.image}" alt="${post.title}" class="blog-image w-full aspect-[16/10] object-cover" loading="lazy"></div>
+                        <div class="p-5"><div class="flex items-center gap-2 mb-3"><span class="tag text-xs">${post.category}</span><span class="text-xs text-white/30">${post.readTime} read</span></div><h3 class="font-semibold mb-2 group-hover:text-tfs-red transition-colors line-clamp-2">${post.title}</h3><p class="text-sm text-white/45 line-clamp-2 mb-4">${post.excerpt}</p><div class="flex items-center justify-between text-sm"><span class="text-white/35">${post.date}</span><span class="text-tfs-red font-semibold group-hover:translate-x-2 transition-transform inline-flex items-center">Read<i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></span></div></div>
+                    </article>
+                `).join('');
+                lucide.createIcons();
+            }
+            
+            function renderInstagramFeed() {
+                const container = document.getElementById('instagramFeed');
+                if (!container) return;
+                container.innerHTML = instagramPosts.map(post => `
+                    <a href="https://instagram.com/toyzforshotz" target="_blank" rel="noopener noreferrer" class="relative group block rounded-xl overflow-hidden aspect-square" aria-label="Instagram post with ${post.likes} likes">
+                        <img src="${post.image}" alt="" class="w-full h-full object-cover transition-transform duration-400 group-hover:scale-110" loading="lazy">
+                        <div class="absolute inset-0 bg-tfs-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"><div class="flex items-center gap-2 text-white"><i data-lucide="heart" class="w-5 h-5 fill-current text-tfs-red"></i><span class="font-semibold">${post.likes}</span></div></div>
+                    </a>
+                `).join('');
+                lucide.createIcons();
+            }
+            
+            function renderCart() {
+                const container = document.getElementById('cartItems');
+                const countEl = document.getElementById('cartCount');
+                const totalEl = document.getElementById('cartTotal');
+                if (!container || !countEl || !totalEl) return;
+                if (cart.length === 0) {
+                    container.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-center py-12"><div class="w-20 h-20 rounded-2xl bg-tfs-dark flex items-center justify-center mb-5"><i data-lucide="shopping-bag" class="w-10 h-10 text-white/20"></i></div><p class="text-white/50 font-medium mb-1">Your cart is empty</p><p class="text-sm text-white/30">Add some prints to get started!</p></div>`;
+                    lucide.createIcons(); return;
+                }
+                container.innerHTML = cart.map(item => `
+                    <div class="flex gap-4 p-4 bg-tfs-black rounded-xl mb-3 border border-white/5">
+                        <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
+                        <div class="flex-1 min-w-0"><h4 class="font-medium text-sm line-clamp-2">${item.name}</h4><p class="text-tfs-red font-bold mt-1">$${item.price}</p><div class="flex items-center gap-2 mt-3"><button onclick="updateQuantity(${item.id}, -1)" class="w-8 h-8 rounded-lg bg-tfs-dark flex items-center justify-center hover:bg-tfs-red transition-colors" aria-label="Decrease quantity"><i data-lucide="minus" class="w-3.5 h-3.5"></i></button><span class="w-8 text-center font-medium">${item.quantity}</span><button onclick="updateQuantity(${item.id}, 1)" class="w-8 h-8 rounded-lg bg-tfs-dark flex items-center justify-center hover:bg-tfs-red transition-colors" aria-label="Increase quantity"><i data-lucide="plus" class="w-3.5 h-3.5"></i></button><button onclick="removeFromCart(${item.id})" class="ml-auto p-2 text-white/35 hover:text-tfs-red transition-colors" aria-label="Remove item"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div></div>
+                    </div>
+                `).join('');
+                lucide.createIcons();
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                totalEl.textContent = `$${total.toFixed(2)}`;
+                countEl.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            }
+            
+            function formatDate(dateStr) { return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+            
+            // CART FUNCTIONS
+            window.addToCart = function(productId) {
+                const product = productsData.find(p => p.id === productId);
+                if (!product) return;
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) existingItem.quantity++; else cart.push({ ...product, quantity: 1 });
+                renderCart(); openCartSidebar(); showNotification(`${product.name} added to cart!`);
+            };
+            
+            window.updateQuantity = function(productId, delta) {
+                const item = cart.find(i => i.id === productId);
+                if (!item) return;
+                item.quantity += delta;
+                if (item.quantity <= 0) removeFromCart(productId); else renderCart();
+            };
+            
+            window.removeFromCart = function(productId) { cart = cart.filter(item => item.id !== productId); renderCart(); };
+            
+            // LIGHTBOX FUNCTIONS
+            window.openLightbox = function(indexOrId) {
+                let index;
+                if (typeof indexOrId === 'number' && indexOrId < 100) index = indexOrId; else index = filteredGallery.findIndex(item => item.id === indexOrId);
+                if (index === -1 || index >= filteredGallery.length) return;
+                currentLightboxIndex = index; updateLightboxContent(); lightbox.classList.add('active'); document.body.style.overflow = 'hidden';
+            };
+            
+            function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+            
+            function updateLightboxContent() {
+                const item = filteredGallery[currentLightboxIndex];
+                if (!item) return;
+                lightboxImg.src = item.image.replace('w=600', 'w=1400'); lightboxImg.alt = item.title; lightboxTitle.textContent = item.title; lightboxMeta.textContent = `${item.category.toUpperCase()} \u2014 ${formatDate(item.date)} \u2014 ${item.likes.toLocaleString()} likes`;
+            }
+            
+            function navigateLightbox(direction) {
+                currentLightboxIndex += direction;
+                if (currentLightboxIndex < 0) currentLightboxIndex = filteredGallery.length - 1;
+                if (currentLightboxIndex >= filteredGallery.length) currentLightboxIndex = 0;
+                updateLightboxContent();
+            }
+            
+            // ADMIN MODE
+            window.toggleAdminMode = function() {
+                isAdminMode = !isAdminMode;
+                document.body.classList.toggle('admin-mode', isAdminMode);
+                adminBar.classList.toggle('visible', isAdminMode);
+                if (isAdminMode && !isPanelOpen) { adminPanel.classList.add('visible'); isPanelOpen = true; }
+                showNotification(isAdminMode ? 'Admin mode enabled - Click elements to edit!' : 'Admin mode disabled');
+            };
+            
+            window.toggleAdminPanel = function() { isPanelOpen = !isPanelOpen; adminPanel.classList.toggle('visible', isPanelOpen); };
+            
+            // UI STATE
+            function openMobileMenu() { mobileMenu.classList.add('active'); document.body.style.overflow = 'hidden'; }
+            function closeMobileMenu() { mobileMenu.classList.remove('active'); document.body.style.overflow = ''; }
+            function openSearchModal() { searchModal.classList.add('active'); setTimeout(() => searchInput.focus(), 100); document.body.style.overflow = 'hidden'; }
+            function closeSearchModal() { searchModal.classList.remove('active'); document.body.style.overflow = ''; }
+            function openCartSidebar() { cartSidebar.classList.add('active'); document.body.style.overflow = 'hidden'; }
+            function closeCartSidebar() { cartSidebar.classList.remove('active'); document.body.style.overflow = ''; }
+            
+            window.showNotification = function(message) {
+                const notification = document.createElement('div');
+                notification.className = 'fixed bottom-28 left-1/2 -translate-x-1/2 bg-tfs-dark text-white px-7 py-4 rounded-xl shadow-2xl shadow-black/50 z-[100000] flex items-center gap-3 border border-white/10';
+                notification.innerHTML = `<div class="w-9 h-9 rounded-lg bg-tfs-red/20 flex items-center justify-center flex-shrink-0"><i data-lucide="check-circle" class="w-5 h-5 text-tfs-red"></i></div><span class="font-medium">${message}</span>`;
+                document.body.appendChild(notification); lucide.createIcons();
+                setTimeout(() => { notification.style.opacity = '0'; notification.style.transform = 'translateX(-50%) translateY(20px)'; notification.style.transition = 'all 0.3s ease'; setTimeout(() => notification.remove(), 300); }, 2800);
+            };
+            
+            // EVENT LISTENERS
+            mobileMenuToggle.addEventListener('click', openMobileMenu);
+            mobileMenuClose.addEventListener('click', closeMobileMenu);
+            mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobileMenu));
+            searchToggle.addEventListener('click', openSearchModal);
+            searchClose.addEventListener('click', closeSearchModal);
+            searchModal.addEventListener('click', (e) => { if (e.target === searchModal) closeSearchModal(); });
+            cartToggle.addEventListener('click', openCartSidebar);
+            cartClose.addEventListener('click', closeCartSidebar);
+            cartSidebar.addEventListener('click', (e) => { if (e.target === cartSidebar) closeCartSidebar(); });
+            lightboxCloseBtn.addEventListener('click', closeLightbox);
+            lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+            lightboxNext.addEventListener('click', () => navigateLightbox(1));
+            lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.shiftKey && e.key === 'A') { e.preventDefault(); toggleAdminMode(); }
+                if (e.key === 'Escape') { closeMobileMenu(); closeSearchModal(); closeCartSidebar(); closeLightbox(); }
+                if (lightbox.classList.contains('active')) { if (e.key === 'ArrowLeft') navigateLightbox(-1); if (e.key === 'ArrowRight') navigateLightbox(1); }
+                if (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') { e.preventDefault(); openSearchModal(); }
+            });
+            
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                readingProgress.style.width = `${docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0}%`;
+                backToTop.classList.toggle('visible', scrollTop > 600);
+            }, { passive: true });
+            
+            backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            
+            if (!localStorage.getItem('cookiesAccepted')) setTimeout(() => cookieBanner.classList.add('visible'), 2500);
+            cookieAccept.addEventListener('click', () => { localStorage.setItem('cookiesAccepted', 'true'); cookieBanner.classList.remove('visible'); });
+            cookieDecline.addEventListener('click', () => { localStorage.setItem('cookiesAccepted', 'false'); cookieBanner.classList.remove('visible'); });
+            
+            function setupFilters(filterContainerId, renderFn) {
+                const container = document.getElementById(filterContainerId);
+                if (!container) return;
+                container.querySelectorAll('.filter-pill').forEach(pill => {
+                    pill.addEventListener('click', () => {
+                        container.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                        pill.classList.add('active'); renderFn(pill.dataset.filter);
+                    });
+                });
+            }
+            
+            setupFilters('galleryFilters', renderGallery);
+            setupFilters('storeFilters', renderProducts);
+            setupFilters('videoFilters', renderVideos);
+            setupFilters('blogFilters', renderBlog);
+            
+            function animateCounters() {
+                document.querySelectorAll('.counter').forEach(counter => {
+                    const target = parseInt(counter.dataset.target);
+                    if (!target || isNaN(target)) return;
+                    const duration = 2200; const step = target / (duration / 16); let current = 0;
+                    const updateCounter = () => { current += step; if (current < target) { counter.textContent = Math.floor(current).toLocaleString(); requestAnimationFrame(updateCounter); } else { counter.textContent = target.toLocaleString(); } };
+                    updateCounter();
+                });
+            }
+            
+            const observerOptions = { threshold: 0.08, rootMargin: '0px 0px -60px 0px' };
+            const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); if (entry.target.querySelector('.counter')) animateCounters(); } }); }, observerOptions);
+            document.querySelectorAll('.reveal-section').forEach(el => observer.observe(el));
+            
+            window.handleNewsletterSubmit = function(e) { e.preventDefault(); showNotification(`Thanks for subscribing! Check your inbox.`); e.target.reset(); };
+            window.handleContactSubmit = function(e) { e.preventDefault(); showNotification('Message sent successfully! I\'ll get back to you within 24 hours.'); e.target.reset(); };
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { const headerOffset = 80; const elementPosition = target.getBoundingClientRect().top; const offsetPosition = elementPosition + window.pageYOffset - headerOffset; window.scrollTo({ top: offsetPosition, behavior: 'smooth' }); } }); });
+            
+            const sections = document.querySelectorAll('section[id]');
+            window.addEventListener('scroll', () => { const scrollPos = window.scrollY + 120; sections.forEach(section => { const top = section.offsetTop; const height = section.offsetHeight; const id = section.getAttribute('id'); const navLink = document.querySelector(`.nav-link[href="#${id}"]`); if (navLink && scrollPos >= top && scrollPos < top + height) { document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active')); navLink.classList.add('active'); } }); }, { passive: true });
+            
+            document.querySelectorAll('.editable').forEach(el => { el.addEventListener('click', function() { if (!isAdminMode) return; showNotification(`Editing: ${this.dataset.field}`); }); });
+            
+            // INITIAL RENDER
+            renderFeaturedGrid(); renderGallery(); renderProducts(); renderVideos(); renderBlog(); renderInstagramFeed(); renderCart();
+            
+            console.log('%c TOYZ FOR SHOTZ ', 'background: #e63946; color: white; font-size: 24px; font-weight: bold; padding: 15px 25px; border-radius: 8px;');
+            console.log('%c Website loaded successfully! Press Ctrl+Shift+A for Admin Mode ', 'color: #e63946; font-size: 14px;');
+        });
+    </script>
+</body>
+</html>
